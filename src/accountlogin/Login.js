@@ -11,7 +11,6 @@ const LoginView = () => {
             </View>
 
             <View>
-
                 <View style={styles.loginInputContainer}>
                     <TextInput style={styles.loginInputs} placeholder="Email"/>
                     <TextInput style={styles.loginInputs} placeholder="Password"/>
@@ -21,25 +20,28 @@ const LoginView = () => {
                 </View>
             </View>
 
-                <View style={styles.signUpPrompt}>
-                    <Text>Don't have an account?</Text>
-                    <Button title="Sign Up"></Button>
-                </View>
+            <View style={styles.signUpPrompt}>
+                <Text>Don't have an account?</Text>
+                <Button title="Sign Up"></Button>
+            </View>
         </View>
     );
-    
+
 }
 
+// const Home = () => {
+//   return (
+//     <View>
+//       <Text>Home pae</Text>
+//     </View>
+//   )
+// }
 
 const styles = StyleSheet.create({
-
     loginContainer:{
         paddingTop: 50,
         paddingHorizontal: 20,
-
-
     },
-
 
     loginInputs:{
         width:300,
@@ -49,33 +51,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 
-
     loginInputContainer:{
         justifyContent: "center",
         alignItems: "center",
     },
 
-
-
-
     signUpPrompt:{
         margin: 20,
         flexDirection: "row",
     },
-
-
-
-
-    buttons:{
-
-
-
-    },
-
-    titleText:{
-
-    }
-
 });
 
 export default LoginView;
