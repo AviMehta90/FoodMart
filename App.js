@@ -12,9 +12,9 @@ const SignUpStack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <SignUpStack.Navigator initialRouteName="SignUp">
-        <SignUpStack.Screen name="SignUp" component={SignUpView} />
-        <SignUpStack.Screen name="Login" component={LoginView} />
+      <SignUpStack.Navigator initialRouteName="SignUpView">
+        <SignUpStack.Screen name="SignUpView" component={SignUpView} />
+        <SignUpStack.Screen name="LoginView" component={LoginView} />
       </SignUpStack.Navigator>
     </NavigationContainer>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import LoginView from "./Login";
 
 const SignUpView = ({navigation}) => {
 
@@ -26,7 +25,7 @@ const SignUpView = ({navigation}) => {
                 <Text>Have an account already?</Text>
                 <Button
                   title="Login"
-                  onPress={() => navigation.navigate("Home")}
+                  onPress={() => navigation.navigate("LoginView")}
                 />
             </View>
         </View>

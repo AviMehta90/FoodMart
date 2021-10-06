@@ -2,7 +2,7 @@ import React from "react";
 
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
-const LoginView = () => {
+const LoginView = ({ navigation }) => {
 
     return(
         <View style={styles.loginContainer}>
@@ -22,20 +22,15 @@ const LoginView = () => {
 
             <View style={styles.signUpPrompt}>
                 <Text>Don't have an account?</Text>
-                <Button title="Sign Up"></Button>
+                  <Button
+                    title="Sign Up"
+                    onPress={() => navigation.navigate("SignUpView")}
+                  />
             </View>
         </View>
     );
 
 }
-
-// const Home = () => {
-//   return (
-//     <View>
-//       <Text>Home pae</Text>
-//     </View>
-//   )
-// }
 
 const styles = StyleSheet.create({
     loginContainer:{
