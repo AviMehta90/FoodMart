@@ -10,13 +10,13 @@ import {
     Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import {LinearGradient} from 'expo-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import {LinearGradient} from 'expo-linear-gradient';
 
 import { AuthContext } from '../components/context';
 
-import Users from '../model/users';
+import Users from '../data/users';
 
 const SignInScreen = ({navigation}) => {
 
@@ -28,8 +28,6 @@ const SignInScreen = ({navigation}) => {
         isValidUser: true,
         isValidPassword: true,
     });
-
-
 
     const { signIn } = React.useContext(AuthContext);
 
@@ -190,9 +188,9 @@ const SignInScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             { data.isValidPassword ? null :
-              <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
-              </Animatable.View>
+            <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
+            </Animatable.View>
             }
 
 
