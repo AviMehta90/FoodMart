@@ -117,7 +117,7 @@ const App = () => {
   }
   return (
     <AuthContext.Provider value={authContext}>
-    <NavigationContainer independent={true}>
+    <NavigationContainer>
       { loginState.userToken !== null ? (
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />} screenOptions={{ headerShown: false }}>
           <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />

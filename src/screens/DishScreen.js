@@ -10,7 +10,7 @@ class DishScreen extends React.Component {
     
     super(props);
 
-    axios.get('https://957e-45-112-145-130.ngrok.io/api/dishes/')
+    axios.get('https://7626-45-112-146-40.ngrok.io/api/dishes/')
       .then(res => {
         const dishes = res.data;
         this.setState({ dishes });
@@ -23,6 +23,7 @@ class DishScreen extends React.Component {
 
     render() {
         let dishes = this.state.dishes;
+        const { navigation } = this.props;
         return (
             <ScrollView
                 style={{
@@ -33,7 +34,7 @@ class DishScreen extends React.Component {
                 {
                     dishes.map((ddata) => {
                         return(
-                            <Dishes dishData={ddata} key={ddata.cuisine_name}/>
+                            <Dishes dishData={ddata} key={ddata.dish_name} navigation={navigation}/>
                         );
                     })
                 }

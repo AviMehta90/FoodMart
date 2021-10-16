@@ -4,6 +4,7 @@ import { Card, Button } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 
 class Cuisine extends React.Component {
+    
 
     render() {
         return (
@@ -23,7 +24,7 @@ class Cuisine extends React.Component {
                 <Button
                     type="clear"
                     title='Explore'
-                    onPress={() => this.props.navigation.navigate('DishesScreen')} 
+                    onPress={() => this.props.navigation.navigate('Dishes')}
                 />
             </Card>
         );

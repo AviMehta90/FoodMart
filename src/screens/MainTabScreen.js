@@ -3,13 +3,15 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { TouchableHighlight } from 'react-native-gesture-handler';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // import HomeScreen from './HomeScreen';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
-import HomeScreen from './NewAppNavigator';
+import NewAppNavigator from './NewAppNavigator';
 
 
 const HomeStack = createNativeStackNavigator();
@@ -19,12 +21,32 @@ const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
     <Tab.Navigator
-      initialRouteName="Home"
-      activeColor="#fff"
+    initialRouteName='Home'
+      tabBarOptions={{
+        showLabel: false,
+        style:{
+          position: 'absolute',
+          botton: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          backgroundColor: '#ffffff',
+          borderRadius: 15,
+          height: 90,
+        }
+      }}
     >
       <Tab.Screen
         name="Home"
         component={HomeStackScreen}
+        renderScene={(route, navigator) =>
+          <TouchableHighlight onPress={() => {
+            if (route.index === 0) {
+              navigator.push(route[1]);
+            } else {
+              navigator.pop();
+            }
+          }}></TouchableHighlight>}
         options={{
           tabBarLabel: 'Home',
           tabBarColor: '#009387',
@@ -81,10 +103,15 @@ const HomeStackScreen = ({navigation}) => (
         fontWeight: 'bold'
       }
     }}>
-        <HomeStack.Screen name="MainTab" component={HomeScreen} options={{
-        title:'Overview',
+        <HomeStack.Screen name="MainTab" component={NewAppNavigator} options={{
+        title:'Home',
         headerLeft: () => (
-            <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+            <Icon.Button 
+              name="ios-menu" 
+              size={25} 
+              backgroundColor="#009387" 
+              onPress={() => navigation.openDrawer()}
+            ></Icon.Button>
         )
         }} />
 </HomeStack.Navigator>
@@ -102,7 +129,12 @@ const DetailsStackScreen = ({navigation}) => (
     }}>
         <DetailsStack.Screen name="Details" component={DetailsScreen} options={{
         headerLeft: () => (
-            <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+            <Icon.Button 
+              name="ios-menu" 
+              size={25} 
+              backgroundColor="#1f65ff" 
+              onPress={() => navigation.openDrawer()}
+            ></Icon.Button>
         )
         }} />
 </DetailsStack.Navigator>

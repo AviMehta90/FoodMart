@@ -1,7 +1,8 @@
 import React from 'react';
 import DishScreen from './DishScreen';
 import HomeScreen from './CuisineScreen';
-import { NavigationContainer } from '@react-navigation/native';
+import { Button } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
@@ -9,13 +10,20 @@ const InAppNavigator = createNativeStackNavigator();
 
 function AppNavigator(){
     return(
-        <NavigationContainer independent={true}>
             <InAppNavigator.Navigator initialRouteName="HomeScreen">
-                <InAppNavigator.Screen name="HomeScreen" component={HomeScreen}/>
-                <InAppNavigator.Screen name="DishesScreen" component={DishScreen}/>
+                <InAppNavigator.Screen name="Cuisines" component={HomeScreen}/>
+                <InAppNavigator.Screen name="Dishes" component={DishScreen}  
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <Button
+                            onPress={() => navigation.popToTop()}
+                          title="Cuisines"
+                          color="#000"
+                        />
+                      ),
+                  })}     
+                />
             </InAppNavigator.Navigator>
-        </NavigationContainer>
-        
     )
 }
 
