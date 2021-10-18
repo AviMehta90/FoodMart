@@ -1,13 +1,16 @@
 import React from 'react';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-// import HomeScreen from './HomeScreen';
+import CartScreen from './HomeScreen';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
@@ -19,23 +22,43 @@ import NewAppNavigator from './NewAppNavigator';
 const HomeStack = createNativeStackNavigator();
 const DetailsStack = createNativeStackNavigator();
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const MainTabScreen = () => (
     <Tab.Navigator
-    tabBarOptions={{
-        showLabel: false,
-        style:{
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === 'Home') {
+          iconName = focused ? 'fast-food' : 'fast-food-outline'
+        } else if (route.name === 'Search') {
+          iconName = focused ? 'search-sharp' : 'search-outline';
+        } else if (route.name === 'Profile') {
+          iconName = focused ? 'person' : 'person-outline';
+        } else if (route.name === 'BookTable') {
+          iconName = focused ? 'bookmark' : 'bookmark-outline';
+        }
+        else if (route.name === 'Cart') {
+          iconName = focused ? 'cart' : 'cart-outline';
+        }
+
+        // You can return any component that you like here!
+        return <Ionicons name={iconName} size={size} color={color} />;
+      },
+      headerShown: false,
+      tabBarShowLabel: true,
+        tabBarStyle:{
           position: 'absolute',
-          botton: 25,
+          botton: 30,
           left: 20,
           right: 20,
           elevation: 0,
-          backgroundColor: '#000000',
+          backgroundColor: '#ffffff',
           borderRadius: 15,
           height: 90,
         }
-      }}
+    })}
     >
       <Tab.Screen
         name="Home"
@@ -48,41 +71,36 @@ const MainTabScreen = () => (
               navigator.pop();
             }
           }}></TouchableHighlight>}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: () => (
-            <Icon name="ios-home" color="#fff" size={26} />
-          ),
-        }}
       />
       <Tab.Screen
-        name="Notifications"
+        name="Search"
         component={DetailsStackScreen}
-        options={{
-          tabBarLabel: 'Updates',
-          tabBarIcon: () => (
-            <Icon name="ios-notifications" color="#fff" size={26} />
-          ),
+        screenOptions={{
+          tabBarLabel: 'Search',
         }}
       />
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{
+        screenOptions={{
           tabBarLabel: 'Profile',
-          tabBarIcon: () => (
-            <Icon name="ios-person" color="#fff" size={26} />
-          ),
         }}
       />
       <Tab.Screen
-        name="Explore"
+        name="BookTable"
         component={ExploreScreen}
-        options={{
-          tabBarLabel: 'Explore',
-          tabBarIcon: () => (
-            <Icon name="ios-aperture" color="#fff" size={26} />
-          ),
+        screenOptions={{
+          tabBarLabel: 'BookTable',
+          tabBarIcon: () => {
+            <MaterialCommunityIcons name="table-furniture" size={24} color="black" />
+          }
+        }}
+      />
+      <Tab.Screen
+        name="Cart"
+        component={CartScreen}
+        screenOptions={{
+          tabBarLabel: 'BookTable',
         }}
       />
     </Tab.Navigator>
