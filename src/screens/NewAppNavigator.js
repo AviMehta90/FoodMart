@@ -11,12 +11,13 @@ const InAppNavigator = createNativeStackNavigator();
 function AppNavigator(){
     return(
             <InAppNavigator.Navigator initialRouteName="HomeScreen">
-                <InAppNavigator.Screen name="Cuisines" component={HomeScreen}/>
+                <InAppNavigator.Screen name="Cuisines" component={HomeScreen}
+                />
                 <InAppNavigator.Screen name="Dishes" component={DishScreen}  
                 options={({ navigation }) => ({
                     headerLeft: () => (
                         <Button
-                            onPress={() => navigation.popToTop()}
+                          onPress={() => navigation.popToTop()}
                           title="Cuisines"
                           color="#000"
                         />

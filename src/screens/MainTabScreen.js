@@ -11,6 +11,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
+import DishScreen from './DishScreen';
+import HomeScreen from './CuisineScreen';
 import NewAppNavigator from './NewAppNavigator';
 
 
@@ -21,8 +23,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
     <Tab.Navigator
-    initialRouteName='Home'
-      tabBarOptions={{
+    tabBarOptions={{
         showLabel: false,
         style:{
           position: 'absolute',
@@ -30,7 +31,7 @@ const MainTabScreen = () => (
           left: 20,
           right: 20,
           elevation: 0,
-          backgroundColor: '#ffffff',
+          backgroundColor: '#000000',
           borderRadius: 15,
           height: 90,
         }
@@ -49,7 +50,6 @@ const MainTabScreen = () => (
           }}></TouchableHighlight>}
         options={{
           tabBarLabel: 'Home',
-          tabBarColor: '#009387',
           tabBarIcon: () => (
             <Icon name="ios-home" color="#fff" size={26} />
           ),
@@ -60,7 +60,6 @@ const MainTabScreen = () => (
         component={DetailsStackScreen}
         options={{
           tabBarLabel: 'Updates',
-          tabBarColor: '#1f65ff',
           tabBarIcon: () => (
             <Icon name="ios-notifications" color="#fff" size={26} />
           ),
@@ -71,7 +70,6 @@ const MainTabScreen = () => (
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarColor: '#694fad',
           tabBarIcon: () => (
             <Icon name="ios-person" color="#fff" size={26} />
           ),
@@ -82,7 +80,6 @@ const MainTabScreen = () => (
         component={ExploreScreen}
         options={{
           tabBarLabel: 'Explore',
-          tabBarColor: '#d02860',
           tabBarIcon: () => (
             <Icon name="ios-aperture" color="#fff" size={26} />
           ),
@@ -94,26 +91,18 @@ const MainTabScreen = () => (
 export default MainTabScreen;
 
 const HomeStackScreen = ({navigation}) => (
-<HomeStack.Navigator screenOptions={{
+<HomeStack.Navigator initialRouteName="CuisineScreen" screenOptions={{
         headerStyle: {
-        backgroundColor: '#009387',
+        backgroundColor: '#1f65ff',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
         fontWeight: 'bold'
       }
     }}>
-        <HomeStack.Screen name="MainTab" component={NewAppNavigator} options={{
-        title:'Home',
-        headerLeft: () => (
-            <Icon.Button 
-              name="ios-menu" 
-              size={25} 
-              backgroundColor="#009387" 
-              onPress={() => navigation.openDrawer()}
-            ></Icon.Button>
-        )
-        }} />
+        {/* <HomeStack.Screen name="MainTab" component={NewAppNavigator}/> */}
+        <HomeStack.Screen name="CuisineScreen" component={HomeScreen}/>
+        <HomeStack.Screen name="DishesScreen" component={DishScreen}/>
 </HomeStack.Navigator>
 );
 
@@ -127,15 +116,6 @@ const DetailsStackScreen = ({navigation}) => (
         fontWeight: 'bold'
         }
     }}>
-        <DetailsStack.Screen name="Details" component={DetailsScreen} options={{
-        headerLeft: () => (
-            <Icon.Button 
-              name="ios-menu" 
-              size={25} 
-              backgroundColor="#1f65ff" 
-              onPress={() => navigation.openDrawer()}
-            ></Icon.Button>
-        )
-        }} />
+        <DetailsStack.Screen name="Details" component={DetailsScreen}/>
 </DetailsStack.Navigator>
 );

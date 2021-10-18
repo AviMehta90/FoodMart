@@ -24,7 +24,7 @@ class Cuisine extends React.Component {
                 <Button
                     type="clear"
                     title='Explore'
-                    onPress={() => this.props.navigation.navigate('Dishes')}
+                    onPress={() => this.props.navigation.navigate('DishesScreen')}
                 />
             </Card>
         );
