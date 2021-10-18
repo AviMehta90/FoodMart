@@ -7,10 +7,10 @@ import axios from "axios";
 class DishScreen extends React.Component {
 
   constructor(props){
-    
+
     super(props);
 
-    axios.get('https://7626-45-112-146-40.ngrok.io/api/dishes/')
+    axios.get('https://00d9-45-112-145-178.ngrok.io/api/dishes/')
       .then(res => {
         const dishes = res.data;
         this.setState({ dishes });

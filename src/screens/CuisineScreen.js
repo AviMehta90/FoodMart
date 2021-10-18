@@ -8,14 +8,14 @@ import { Button } from 'react-native-elements';
 class HomeScreen extends React.Component {
 
   constructor(props){
-    
+
     super(props);
-    
+
     this.state = {
       cuisines: []
     }
 
-    axios.get('https://7626-45-112-146-40.ngrok.io/api/cuisines/')
+    axios.get('https://00d9-45-112-145-178.ngrok.io/api/cuisines/')
       .then(res => {
         const cuisines = res.data;
         this.setState({ cuisines });
@@ -38,8 +38,8 @@ class HomeScreen extends React.Component {
                 <Cuisine cuisData={cdata} key={cdata.cuisine_name} navigation={navigation}/>
               );
             })}
-            {/* <Button 
-            title="Go to Dishes Screen" 
+            {/* <Button
+            title="Go to Dishes Screen"
             onPress={() => this.props.navigation.navigate('DishesScreen')}
             /> */}
           </ScrollView>
