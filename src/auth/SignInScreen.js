@@ -21,30 +21,32 @@ import Users from '../data/users';
 const SignInScreen = ({navigation}) => {
 
     const [data, setData] = React.useState({
-        username: '',
+        email: '',
         password: '',
         check_textInputChange: false,
         secureTextEntry: true,
-        isValidUser: true,
+        isValidEmail: true,
         isValidPassword: true,
     });
 
     const { signIn } = React.useContext(AuthContext);
 
     const textInputChange = (val) => {
-        if( val.trim().length >= 4 ) {
+      let reg =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if( reg.test(val) === true ) {
             setData({
                 ...data,
-                username: val,
+                email: val,
                 check_textInputChange: true,
-                isValidUser: true
+                isValidEmail: true
             });
         } else {
             setData({
                 ...data,
-                username: val,
+                email: val,
                 check_textInputChange: false,
-                isValidUser: false
+                isValidEmail: false
             });
         }
     }
@@ -72,27 +74,28 @@ const SignInScreen = ({navigation}) => {
         });
     }
 
-    const handleValidUser = (val) => {
-        if( val.trim().length >= 4 ) {
+    const handleValidEmail = (val) => {
+      let reg =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if( reg.test(val) === true ) {
             setData({
                 ...data,
-                isValidUser: true
+                isValidEmail: true
             });
         } else {
             setData({
                 ...data,
-                isValidUser: false
+                isValidEmail: false
             });
         }
     }
 
-    const loginHandle = (userName, password) => {
+    const loginHandle = (email, password) => {
 
         const foundUser = Users.filter( item => {
-            return userName == item.username && password == item.password;
+            return email == item.email && password == item.password;
         } );
 
-        if ( data.username.length == 0 || data.password.length == 0 ) {
+        if ( data.email.length == 0 || data.password.length == 0 ) {
             Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
                 {text: 'Okay'}
             ]);
@@ -118,7 +121,7 @@ const SignInScreen = ({navigation}) => {
             animation="fadeInUpBig"
             style={styles.footer}
         >
-            <Text style={styles.text_footer}>Username</Text>
+            <Text style={styles.text_footer}>Email</Text>
             <View style={styles.action}>
                 <FontAwesome
                     name="user-o"
@@ -126,12 +129,12 @@ const SignInScreen = ({navigation}) => {
                     size={20}
                 />
                 <TextInput
-                    placeholder="Your Username"
+                    placeholder="Your Email"
                     placeholderTextColor="#666666"
                     style={styles.textInput}
                     autoCapitalize="none"
                     onChangeText={(val) => textInputChange(val)}
-                    onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                    onEndEditing={(e)=>handleValidEmail(e.nativeEvent.text)}
                 />
                 {data.check_textInputChange ?
                 <Animatable.View
@@ -145,9 +148,9 @@ const SignInScreen = ({navigation}) => {
                 </Animatable.View>
                 : null}
             </View>
-            { data.isValidUser ? null :
+            { data.isValidEmail ? null :
             <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
+            <Text style={styles.errorMsg}>Enter valid Email Id</Text>
             </Animatable.View>
             }
 
@@ -200,7 +203,7 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => {loginHandle( data.username, data.password )}}
+                    onPress={() => {loginHandle( data.email, data.password )}}
                 >
                 <LinearGradient
                     colors={['#08d4c4', '#01ab9d']}

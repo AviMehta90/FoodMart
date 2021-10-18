@@ -11,7 +11,7 @@ const RootStack = createNativeStackNavigator();
 
 function RootStackScreen() {
   return (
-      <RootStack.Navigator headerMode='none'>
+      <RootStack.Navigator headerMode='none' screenOptions={{ headerShown: false }}>
           <RootStack.Screen name="SplashScreen" component={SplashScreen}/>
           <RootStack.Screen name="SignInScreen" component={SignInScreen}/>
           <RootStack.Screen name="SignUpScreen" component={SignUpScreen}/>

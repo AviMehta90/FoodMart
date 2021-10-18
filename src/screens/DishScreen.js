@@ -7,7 +7,7 @@ import axios from "axios";
 class DishScreen extends React.Component {
 
   constructor(props){
-    
+
     super(props);
 
     axios.get('https://00d9-45-112-145-178.ngrok.io/api/dishes/')
