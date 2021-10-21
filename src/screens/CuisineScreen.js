@@ -15,7 +15,7 @@ class HomeScreen extends React.Component {
       cuisines: []
     }
 
-    axios.get('https://00d9-45-112-145-178.ngrok.io/api/cuisines/')
+    axios.get('https://88b5-45-112-145-178.ngrok.io/api/cuisines/')
       .then(res => {
         const cuisines = res.data;
         this.setState({ cuisines });
@@ -25,6 +25,7 @@ class HomeScreen extends React.Component {
 
     render() {
         let cuisines = this.state.cuisines;
+        // console.log(cuisines);
         const { navigation } = this.props;
         return (
           <ScrollView
