@@ -16,7 +16,7 @@ const SplashScreen = ({navigation}) => {
 
     return (
       <View style={styles.container}>
-          <StatusBar backgroundColor='#009387' barStyle="light-content"/>
+          <StatusBar backgroundColor='#FFB64C' barStyle="light-content"/>
         <View style={styles.header}>
             <Animatable.Image
                 animation="bounceIn"
@@ -30,20 +30,14 @@ const SplashScreen = ({navigation}) => {
             style={styles.footer}
             animation="fadeInUpBig"
         >
-            <Text style={styles.title}>Stay connected with everyone!</Text>
-            <Text style={styles.text}>Sign in with account</Text>
+            <Text style={styles.title}>Famous Foods</Text>
             <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.navigate('SignInScreen')}>
                 <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
+                    colors={['#FFD18E', '#FFB64C']}
                     style={styles.signIn}
                 >
-                    <Text style={styles.textSign}>Get Started</Text>
-                    <MaterialIcons
-                        name="navigate-next"
-                        color="#fff"
-                        size={20}
-                    />
+                    <Text style={styles.textSign}>Order Up!</Text>
                 </LinearGradient>
             </TouchableOpacity>
             </View>
@@ -60,7 +54,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387'
+    backgroundColor: '#FFB64C'
   },
   header: {
       flex: 2,
@@ -102,6 +96,7 @@ const styles = StyleSheet.create({
   },
   textSign: {
       color: 'white',
+      fontSize: 20,
       fontWeight: 'bold'
   }
 });
