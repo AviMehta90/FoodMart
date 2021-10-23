@@ -10,14 +10,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import CartScreen from './HomeScreen';
-<<<<<<< HEAD
+import CartScreen from './CartScreen';
 import SearchBarScreen from './SearchBarScreen';
 import BookTable from './BookTable';
-=======
-import DetailsScreen from './DetailsScreen';
 import TableFormScreen from './BookTableFormScreen';
->>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
 import ProfileScreen from './ProfileScreen';
 import DishScreen from './DishScreen';
 import HomeScreen from './CuisineScreen';
@@ -25,12 +21,9 @@ import NewAppNavigator from './NewAppNavigator';
 
 
 const HomeStack = createNativeStackNavigator();
-<<<<<<< HEAD
 const SearchStack = createNativeStackNavigator();
-=======
 const DetailsStack = createNativeStackNavigator();
 const BookTableStack = createNativeStackNavigator();
->>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
 
 const Tab = createBottomTabNavigator();
 
@@ -48,8 +41,7 @@ const MainTabScreen = () => (
           iconName = focused ? 'person' : 'person-outline';
         } else if (route.name === 'BookTable') {
           iconName = focused ? 'bookmark' : 'bookmark-outline';
-        }
-        else if (route.name === 'Cart') {
+        } else if (route.name === 'Cart') {
           iconName = focused ? 'cart' : 'cart-outline';
         }
 
@@ -98,11 +90,8 @@ const MainTabScreen = () => (
       />
       <Tab.Screen
         name="BookTable"
-<<<<<<< HEAD
         component={BookTable}
-=======
         component={BookTableStackScreen}
->>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
         screenOptions={{
           tabBarLabel: 'BookTable',
           tabBarIcon: () => {
