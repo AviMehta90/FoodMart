@@ -32,18 +32,10 @@ class HomeScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const url = "https://bhavya3.pythonanywhere.com/api/cuisines";
-    return fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          cuisinesData: responseJson,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
+    axios.get('https://bhavya3.pythonanywhere.com/api/cuisines/')
+      .then(res => {
+        const cuisinesData = res.data;
+        this.setState({ cuisinesData });
       });
   }
 
