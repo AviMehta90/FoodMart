@@ -15,7 +15,7 @@ class HomeScreen extends React.Component {
       cuisines: []
     }
 
-    axios.get('https://00d9-45-112-145-178.ngrok.io/api/cuisines/')
+    axios.get('https://bhavya3.pythonanywhere.com/api/cuisines/')
       .then(res => {
         const cuisines = res.data;
         this.setState({ cuisines });

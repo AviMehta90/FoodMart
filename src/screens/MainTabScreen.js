@@ -16,7 +16,6 @@ import TableFormScreen from './BookTableFormScreen';
 import ProfileScreen from './ProfileScreen';
 import DishScreen from './DishScreen';
 import HomeScreen from './CuisineScreen';
-import NewAppNavigator from './NewAppNavigator';
 
 
 const HomeStack = createNativeStackNavigator();

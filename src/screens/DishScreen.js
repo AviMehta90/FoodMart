@@ -10,7 +10,7 @@ class DishScreen extends React.Component {
 
     super(props);
 
-    axios.get('https://00d9-45-112-145-178.ngrok.io/api/dishes/')
+    axios.get('https://bhavya3.pythonanywhere.com/api/dishes/')
       .then(res => {
         const dishes = res.data;
         this.setState({ dishes });
