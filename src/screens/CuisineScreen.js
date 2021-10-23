@@ -25,6 +25,7 @@ class HomeScreen extends React.Component {
 
     render() {
         let cuisines = this.state.cuisines;
+        // console.log(cuisines);
         const { navigation } = this.props;
         return (
           <ScrollView

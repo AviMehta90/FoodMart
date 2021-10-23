@@ -11,16 +11,25 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import CartScreen from './HomeScreen';
+<<<<<<< HEAD
+import SearchBarScreen from './SearchBarScreen';
+import BookTable from './BookTable';
+=======
 import DetailsScreen from './DetailsScreen';
 import TableFormScreen from './BookTableFormScreen';
+>>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
 import ProfileScreen from './ProfileScreen';
 import DishScreen from './DishScreen';
 import HomeScreen from './CuisineScreen';
 
 
 const HomeStack = createNativeStackNavigator();
+<<<<<<< HEAD
+const SearchStack = createNativeStackNavigator();
+=======
 const DetailsStack = createNativeStackNavigator();
 const BookTableStack = createNativeStackNavigator();
+>>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
 
 const Tab = createBottomTabNavigator();
 
@@ -74,7 +83,7 @@ const MainTabScreen = () => (
       />
       <Tab.Screen
         name="Search"
-        component={DetailsStackScreen}
+        component={SearchStackScreen}
         screenOptions={{
           tabBarLabel: 'Search',
         }}
@@ -88,7 +97,11 @@ const MainTabScreen = () => (
       />
       <Tab.Screen
         name="BookTable"
+<<<<<<< HEAD
+        component={BookTable}
+=======
         component={BookTableStackScreen}
+>>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
         screenOptions={{
           tabBarLabel: 'BookTable',
           tabBarIcon: () => {
@@ -124,8 +137,8 @@ const HomeStackScreen = ({navigation}) => (
 </HomeStack.Navigator>
 );
 
-const DetailsStackScreen = ({navigation}) => (
-<DetailsStack.Navigator screenOptions={{
+const SearchStackScreen = ({navigation}) => (
+<SearchStack.Navigator screenOptions={{
         headerStyle: {
         backgroundColor: '#1f65ff',
         },
@@ -134,8 +147,8 @@ const DetailsStackScreen = ({navigation}) => (
         fontWeight: 'bold'
         }
     }}>
-        <DetailsStack.Screen name="Details" component={DetailsScreen}/>
-</DetailsStack.Navigator>
+        <SearchStack.Screen name="SearchBar" component={SearchBarScreen}/>
+</SearchStack.Navigator>
 );
 
 
