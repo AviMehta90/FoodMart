@@ -1,13 +1,26 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 
 class Cuisine extends React.Component {
-    
+
 
     render() {
+      // const navigation = this.props.navigation;
         return (
+
+          // <TouchableOpacity
+          //   style={[styles.divCategorie, { backgroundColor: "grey" }]}
+          //   onPress={() => this.props.navigation.navigate('DishScreen')}
+          // >
+          //   <Image
+          //     style={{ width: 100, height: 80 }}
+          //     resizeMode="contain"
+          //     source={{ uri: this.props.cuisData.cuisine_image }}
+          //   />
+          //   <Text style={{ fontWeight: "bold", fontSize: 22 }}>{this.props.cuisData.cuisine_name}</Text>
+          // </TouchableOpacity>
             <Card>
                 <Card.Image
                     source = {{uri: this.props.cuisData.cuisine_image}}
@@ -43,7 +56,14 @@ const styles = StyleSheet.create({
     },
     description: {
         color: '#c1c4cd'
-    }
+    },
+    divCategorie: {
+        backgroundColor: "red",
+        margin: 5,
+        alignItems: "center",
+        borderRadius: 10,
+        padding: 10,
+      },
 });
 
 export default withNavigation(Cuisine);

@@ -6,9 +6,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerContent } from './src/screens/DrawerContent';
 
 import MainTabScreen from './src/screens/MainTabScreen';
-import SupportScreen from './src/screens/SupportScreen';
-import SettingsScreen from './src/screens/SettingsScreen';
-import BookmarkScreen from './src/screens/BookmarkScreen';
 
 import { AuthContext } from './src/components/context';
 

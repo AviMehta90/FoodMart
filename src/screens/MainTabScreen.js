@@ -38,8 +38,7 @@ const MainTabScreen = () => (
           iconName = focused ? 'person' : 'person-outline';
         } else if (route.name === 'BookTable') {
           iconName = focused ? 'bookmark' : 'bookmark-outline';
-        }
-        else if (route.name === 'Cart') {
+        } else if (route.name === 'Cart') {
           iconName = focused ? 'cart' : 'cart-outline';
         }
 

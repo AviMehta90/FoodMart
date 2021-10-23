@@ -1,19 +1,25 @@
-import * as React from 'react';
+import React from "react";
 import {
   Text,
-  View,
   StyleSheet,
-  FlatList,
+  ScrollView,
+  View,
+  Header,
+  Item,
+  InputText,
   ActivityIndicator,
+  FlatList,
   Platform,
-} from 'react-native';
-import { SearchBar } from 'react-native-elements';
+  Icon,
+} from "react-native";
+import axios from "axios";
+import { Card, Button, SearchBar } from "react-native-elements";
 
-export default class SearchBarScreen extends React.Component {
+export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
     //setting default state
-    this.state = { isLoading: true, search: '' };
+    this.state = { isLoading: true, search: "" };
     this.arrayholder = [];
   }
   componentDidMount() {
@@ -23,20 +29,19 @@ export default class SearchBarScreen extends React.Component {
         this.setState(
           {
             isLoading: false,
-            dataSource: responseJson,
+            dishes: responseJson.food,
           },
-          function() {
-            this.arrayholder = responseJson;
+          function () {
+            this.arrayholder = responseJson.food;
           }
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   }
 
-
-  search = text => {
+  search = (text) => {
     console.log(text);
   };
   clear = () => {
@@ -45,23 +50,21 @@ export default class SearchBarScreen extends React.Component {
 
   SearchFilterFunction(text) {
     //passing the inserted text in textinput
-    const newData = this.arrayholder.filter(function(item) {
+    const newData = this.arrayholder.filter(function (item) {
       //applying filter for the inserted text in search bar
-      const itemData = item.dish_name ? item.dish_name.toUpperCase() : ''.toUpperCase();
+      const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
 
       const textData = text.toUpperCase();
-      console.log(itemData.indexOf(textData) > -1);
       return itemData.indexOf(textData) > -1;
     });
 
     this.setState({
       //setting the filtered newData on datasource
       //After setting the data it will automatically re-render the view
-      dataSource: newData,
+      dishes: newData,
       search: text,
     });
   }
-
 
   render() {
     if (this.state.isLoading) {
@@ -72,23 +75,19 @@ export default class SearchBarScreen extends React.Component {
         </View>
       );
     }
+
     return (
-      //ListView to show with textinput used as search bar
-      <View style={styles.viewStyle}>
+      <View>
         <SearchBar
           round
-          searchIcon={{ size: 24 }}
-          onChangeText={text => this.SearchFilterFunction(text)}
-          onClear={text => this.SearchFilterFunction('')}
           placeholder="Type Here..."
+          onChangeText={(text) => this.SearchFilterFunction(text)}
+          onClear={(text) => this.SearchFilterFunction("")}
           value={this.state.search}
         />
         <FlatList
-          data={this.state.dataSource}
-          renderItem={({ item }) => (
-            // Single Comes here which will be repeatative for the FlatListItems
-            <Text style={styles.textStyle}>{item.dish_name}</Text>
-          )}
+          data={this.state.dishes}
+          renderItem={({ item }) => this.renderItem(item)}
           enableEmptySections={true}
           style={{ marginTop: 10 }}
           keyExtractor={(item, index) => index.toString()}
@@ -96,16 +95,46 @@ export default class SearchBarScreen extends React.Component {
       </View>
     );
   }
+
+  renderItem(item) {
+    let src = this.state.search;
+    if (src !== "") {
+      return (
+        <Card>
+          <Card.Image source={{ uri: item.image }} />
+          <Text style={{ marginBottom: 10, marginTop: 20 }} h2>
+            {item.name}
+          </Text>
+          <Text style={styles.price} h4>
+            {item.categorie}
+          </Text>
+          <Text style={styles.price} h4>
+            {item.price}
+          </Text>
+          <Text h4 style={styles.description}>
+            blah blah blah!!!
+          </Text>
+          <Button title="Add to Cart" onPress={() => alert("Button Clicked!")} />
+        </Card>
+      );
+    } else {
+      return null;
+    }
+
+  }
 }
 
 const styles = StyleSheet.create({
-  viewStyle: {
-    justifyContent: 'center',
-    flex: 1,
-    backgroundColor: 'white',
-    marginTop: Platform.OS == 'ios' ? 30 : 0,
+  name: {
+    color: "#5a647d",
+    fontWeight: "bold",
+    fontSize: 30,
   },
-  textStyle: {
-    padding: 10,
+  price: {
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  description: {
+    color: "#c1c4cd",
   },
 });
