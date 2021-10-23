@@ -11,25 +11,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import CartScreen from './HomeScreen';
-<<<<<<< HEAD
 import SearchBarScreen from './SearchBarScreen';
-import BookTable from './BookTable';
-=======
-import DetailsScreen from './DetailsScreen';
 import TableFormScreen from './BookTableFormScreen';
->>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
 import ProfileScreen from './ProfileScreen';
 import DishScreen from './DishScreen';
 import HomeScreen from './CuisineScreen';
 
 
 const HomeStack = createNativeStackNavigator();
-<<<<<<< HEAD
 const SearchStack = createNativeStackNavigator();
-=======
-const DetailsStack = createNativeStackNavigator();
 const BookTableStack = createNativeStackNavigator();
->>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
 
 const Tab = createBottomTabNavigator();
 
@@ -97,11 +88,7 @@ const MainTabScreen = () => (
       />
       <Tab.Screen
         name="BookTable"
-<<<<<<< HEAD
-        component={BookTable}
-=======
         component={BookTableStackScreen}
->>>>>>> 163aa1994ee5a9da119979e54f86398a340bb760
         screenOptions={{
           tabBarLabel: 'BookTable',
           tabBarIcon: () => {
@@ -162,6 +149,6 @@ const BookTableStackScreen = ({navigation}) => (
           fontWeight: 'bold'
           }
       }}>
-          <BookTableStack.Screen name="BookTable" component={TableFormScreen}/>
+          <BookTableStack.Screen name="BookTableForm" component={TableFormScreen}/>
   </BookTableStack.Navigator>
   );

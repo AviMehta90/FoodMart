@@ -17,7 +17,7 @@ export default class SearchBarScreen extends React.Component {
     this.arrayholder = [];
   }
   componentDidMount() {
-    return fetch('https://88b5-45-112-145-178.ngrok.io/api/dishes/')
+    return fetch('https://bhavya3.pythonanywhere.com/api/dishes/')
       .then(response => response.json())
       .then(responseJson => {
         this.setState(

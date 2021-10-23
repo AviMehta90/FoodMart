@@ -67,7 +67,7 @@ const BookTableForm = ({navigation}) => {
         />
       </View>
       <View>
-          
+          <Text>{data.time}</Text>
       </View>
     </View>
     
