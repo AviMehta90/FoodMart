@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Card, Button } from 'react-native-elements';
-import { withNavigation } from 'react-navigation';
 
 class Cuisine extends React.Component {
 
@@ -10,36 +9,36 @@ class Cuisine extends React.Component {
       // const navigation = this.props.navigation;
         return (
 
-          // <TouchableOpacity
-          //   style={[styles.divCategorie, { backgroundColor: "grey" }]}
-          //   onPress={() => this.props.navigation.navigate('DishScreen')}
-          // >
-          //   <Image
-          //     style={{ width: 100, height: 80 }}
-          //     resizeMode="contain"
-          //     source={{ uri: this.props.cuisData.cuisine_image }}
-          //   />
-          //   <Text style={{ fontWeight: "bold", fontSize: 22 }}>{this.props.cuisData.cuisine_name}</Text>
-          // </TouchableOpacity>
-            <Card>
-                <Card.Image
-                    source = {{uri: this.props.cuisData.cuisine_image}}
-                />
-                <Text style={{marginBottom: 10, marginTop: 20 }} h2>
-                    {this.props.cuisData.cuisine_name}
-                </Text>
-                <Text style={styles.price} h4>
-                    Dishes: {this.props.cuisData.dish_count}
-                </Text>
-                <Text h4 style={styles.description}>
-                    blah blah blah!!!
-                </Text>
-                <Button
-                    type="clear"
-                    title='Explore'
-                    onPress={() => this.props.navigation.navigate('DishesScreen')}
-                />
-            </Card>
+          <TouchableOpacity
+            style={[styles.divCategorie, { backgroundColor: "grey" }]}
+            onPress={() => this.props.navigation.navigate('DishesScreen')}
+          >
+            <Image
+              style={{ width: 100, height: 80 }}
+              resizeMode="contain"
+              source={{ uri: this.props.cuisData.cuisine_image }}
+            />
+            <Text style={{ fontWeight: "bold", fontSize: 22 }}>{this.props.cuisData.cuisine_name}</Text>
+          </TouchableOpacity>
+            // <Card>
+            //     <Card.Image
+            //         source = {{uri: this.props.cuisData.cuisine_image}}
+            //     />
+            //     <Text style={{marginBottom: 10, marginTop: 20 }} h2>
+            //         {this.props.cuisData.cuisine_name}
+            //     </Text>
+            //     <Text style={styles.price} h4>
+            //         Dishes: {this.props.cuisData.dish_count}
+            //     </Text>
+            //     <Text h4 style={styles.description}>
+            //         blah blah blah!!!
+            //     </Text>
+            //     <Button
+            //         type="clear"
+            //         title='Explore'
+            //         onPress={() => this.props.navigation.navigate('DishesScreen')}
+            //     />
+            // </Card>
         );
     }
 }
@@ -66,4 +65,4 @@ const styles = StyleSheet.create({
       },
 });
 
-export default withNavigation(Cuisine);
+export default Cuisine;

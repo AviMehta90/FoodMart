@@ -30,7 +30,6 @@ class HomeScreen extends React.Component {
       selectCatg: 0,
       cuisinesData: [],
     };
-  }
 
     axios.get('https://bhavya3.pythonanywhere.com/api/cuisines/')
       .then(res => {
@@ -38,6 +37,7 @@ class HomeScreen extends React.Component {
         this.setState({ cuisinesData });
       });
   }
+
 
   render() {
     const navigation = this.state;
@@ -47,7 +47,7 @@ class HomeScreen extends React.Component {
         <FlatList
           data={this.state.cuisinesData}
           renderItem={({ item }) => {
-            return <Cuisine cuisData={item} navigation={navigation} />;
+            return <Cuisine cuisData={item} navigation={this.props.navigation} />;
           }}
           keyExtractor={(item, index) => index.toString()}
         />
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(HomeScreen);
+export default HomeScreen;
 
 //
 // import React, { Component } from "react";

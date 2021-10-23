@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Card, Button } from 'react-native-elements';
-import { withNavigation } from 'react-navigation';
 
 class Dishes extends React.Component {
 
@@ -47,4 +46,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default withNavigation(Dishes);
+export default Dishes;

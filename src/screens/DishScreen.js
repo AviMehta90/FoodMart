@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import Dishes from '../components/Dishes';
 import axios from "axios";
 
@@ -34,7 +33,7 @@ class DishScreen extends React.Component {
                 {
                     dishes.map((ddata) => {
                         return(
-                            <Dishes dishData={ddata} key={ddata.dish_name} navigation={navigation}/>
+                            <Dishes dishData={ddata} key={ddata.dish_name} navigation={this.props.navigation}/>
                         );
                     })
                 }
@@ -43,7 +42,7 @@ class DishScreen extends React.Component {
     }
 }
 
-export default withNavigation(DishScreen);
+export default DishScreen;
 
 //
 // import React, { Component } from "react";
