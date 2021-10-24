@@ -13,7 +13,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import CartScreen from './HomeScreen';
+import CartScreen from './CartScreen';
 import SearchBarScreen from './SearchBarScreen';
 import TableFormScreen from './BookTableFormScreen';
 import ProfileScreen from './ProfileScreen';

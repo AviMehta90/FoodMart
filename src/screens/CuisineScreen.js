@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   StatusBar,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  SafeAreaView,
   Text,
   View,
   Dimensions,
@@ -20,9 +21,10 @@ import Cuisine from "../components/Cuisines";
 import Banner from "./Banner";
 import axios from "axios";
 
-class HomeScreen extends React.Component {
+import { LogBox } from 'react-native';
 
-  
+
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -38,6 +40,10 @@ class HomeScreen extends React.Component {
       });
   }
 
+  // Disable the warning
+  componentDidMount() {
+      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  };
 
   render() {
     return (

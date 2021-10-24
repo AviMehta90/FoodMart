@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  FlatList,
   StyleSheet,
   Dimensions,
 } from "react-native";
@@ -18,82 +19,111 @@ export default class CartScreen extends Component {
     super(props);
     this.state = {
       dataCart: [],
+      refreshing: false,
     };
+
+    // AsyncStorage.getItem("cart")
+    //   .then((cart) => {
+    //       if (cart !== null) {
+    //       const cartfood = JSON.parse(cart);
+    //       this.setState({ dataCart: cartfood, refreshing: false,});
+    //     }
+    //     })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
+
+  };
+
+  componentDidMount(){
+     this.updatecart();
   }
 
-  componentDidMount() {
+  updatecart = () => {
     AsyncStorage.getItem("cart")
       .then((cart) => {
-        if (cart !== null) {
-          // We have data!!
+          if (cart !== null) {
           const cartfood = JSON.parse(cart);
-          this.setState({ dataCart: cartfood });
+          this.setState({ dataCart: cartfood, refreshing: false,});
         }
-      })
+        })
       .catch((err) => {
         alert(err);
       });
-
   }
 
+
+
+  handleRefresh = () => {
+        this.setState({
+            refreshing: true,
+          },
+          () => {
+              this.updatecart();
+          },
+        )};
+
+
   render() {
-    // console.log(dataCart);
+    const dcart = (this.state.dataCart);
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <View style={{ height: 20 }} />
-        <Text style={{ fontSize: 32, fontWeight: "bold", color: "#33c37d" }}>Cart food</Text>
-        <View style={{ height: 10 }} />
 
-        <View style={{ flex: 1 }}>
-          <ScrollView>
-            {this.state.dataCart.map((item, i) => {
-              return (
-                <View style={styles.main} key={i}>
-                  <Image
-                    resizeMode={"contain"}
-                    style={{ width: width / 3, height: width / 3 }}
-                    source={{ uri: item.food.image }}
-                  />
-                  <View style={styles.parent}>
-                    <View>
-                      <Text style={{ fontWeight: "bold", fontSize: 20 }}>{item.food.name}</Text>
-                      <Text>Lorem Ipsum de food</Text>
-                    </View>
-                    <View style={styles.pricemain}>
-                      <Text style={styles.price}>${item.price * item.quantity}</Text>
-                      <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <TouchableOpacity onPress={() => this.onChangeQual(i, false)}>
-                          <Icon
-                            name="ios-remove-circle"
-                            size={35}
-                            color={"#33c37d"}
-                          />
-                        </TouchableOpacity>
-                        <Text style={styles.quantity}>{item.quantity}</Text>
-                        <TouchableOpacity onPress={() => this.onChangeQual(i, true)}>
-                          <Icon
-                            name="ios-add-circle"
-                            size={35}
-                            color={"#33c37d"}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              );
-            })}
-          </ScrollView>
-        </View>
+        <FlatList
+          data={this.state.dataCart}
+          ListHeaderComponent={()=><Text style={{ fontSize: 32, fontWeight: "bold", color: "#33c37d" }}>Cart food</Text>}
+          renderItem={({ item, index }) => this.renderCart(item, index)}
+          keyExtractor={(item, index) => index.toString()}
+          onRefresh={() => this.handleRefresh()}
+          refreshing={this.state.refreshing}
+        />
 
-
-      <Text style={{fontSize: 20, color:"#33c37d"}}>${this.onLoadTotal()}</Text>
+        <Text style={{fontSize: 20, color:"#33c37d"}}>${this.onLoadTotal()}</Text>
 
         <TouchableOpacity style={styles.checkoutbtn}>
           <Text style={styles.checkout}>CHECKOUT</Text>
         </TouchableOpacity>
 
         <View style={{ height: 20 }} />
+      </View>
+    );
+  }
+
+  renderCart(item, i) {
+    return (
+    <View style={styles.main}>
+        <Image
+          resizeMode={"contain"}
+          style={{ width: width / 3, height: width / 3 }}
+          source={{ uri: item.food.dish_image }}
+        />
+        <View style={styles.parent}>
+          <View>
+            <Text style={{ fontWeight: "bold", fontSize: 20 }}>{item.food.dish_name}</Text>
+            <Text>Lorem Ipsum de food</Text>
+          </View>
+          <View style={styles.pricemain}>
+            <Text style={styles.price}>${item.price * item.quantity}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TouchableOpacity onPress={() => this.onChangeQual(i, false)}>
+                <Icon
+                  name="ios-remove-circle"
+                  size={35}
+                  color={"#33c37d"}
+                />
+              </TouchableOpacity>
+              <Text style={styles.quantity}>{item.quantity}</Text>
+              <TouchableOpacity onPress={() => this.onChangeQual(i, true)}>
+                <Icon
+                  name="ios-add-circle"
+                  size={35}
+                  color={"#33c37d"}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       </View>
     );
   }
@@ -107,7 +137,6 @@ export default class CartScreen extends Component {
     }
     return total;
   }
-
 
 
 
