@@ -6,12 +6,11 @@ class Cuisine extends React.Component {
 
 
     render() {
-      // const navigation = this.props.navigation;
         return (
 
           <TouchableOpacity
             style={[styles.divCategorie, { backgroundColor: "grey" }]}
-            onPress={() => this.props.navigation.navigate('DishesScreen')}
+            onPress={() => this.props.navigation.navigate('DishesScreen', {cuisine_id: this.props.cuisData.id})}
           >
             <Image
               style={{ width: 100, height: 80 }}
@@ -20,25 +19,6 @@ class Cuisine extends React.Component {
             />
             <Text style={{ fontWeight: "bold", fontSize: 22 }}>{this.props.cuisData.cuisine_name}</Text>
           </TouchableOpacity>
-            // <Card>
-            //     <Card.Image
-            //         source = {{uri: this.props.cuisData.cuisine_image}}
-            //     />
-            //     <Text style={{marginBottom: 10, marginTop: 20 }} h2>
-            //         {this.props.cuisData.cuisine_name}
-            //     </Text>
-            //     <Text style={styles.price} h4>
-            //         Dishes: {this.props.cuisData.dish_count}
-            //     </Text>
-            //     <Text h4 style={styles.description}>
-            //         blah blah blah!!!
-            //     </Text>
-            //     <Button
-            //         type="clear"
-            //         title='Explore'
-            //         onPress={() => this.props.navigation.navigate('DishesScreen')}
-            //     />
-            // </Card>
         );
     }
 }

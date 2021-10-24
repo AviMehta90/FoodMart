@@ -6,53 +6,73 @@ import {
   View,
   Header,
   Item,
+  Dimensions,
   InputText,
+  TouchableOpacity,
+  Image,
   ActivityIndicator,
   FlatList,
   Platform,
-  Icon,
 } from "react-native";
 import axios from "axios";
+var { height, width } = Dimensions.get("window");
+import Icon from "react-native-vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Card, Button, SearchBar } from "react-native-elements";
 
 export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
     //setting default state
-    this.state = { isLoading: true, search: "" };
+    this.state = {
+      isLoading: true,
+      search: "",
+      };
     this.arrayholder = [];
-  }
-  componentDidMount() {
-    return fetch('https://bhavya3.pythonanywhere.com/api/dishes/')
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState(
-          {
-            isLoading: false,
-            dishes: responseJson.food,
-          },
-          function () {
-            this.arrayholder = responseJson.food;
-          }
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
 
-  search = (text) => {
-    console.log(text);
-  };
-  clear = () => {
-    this.search.clear();
-  };
+    axios.get("https://bhavya3.pythonanywhere.com/api/dishes").then((res) => {
+      this.setState(
+        {
+          isLoading: false,
+          dishes: res.data,
+        },
+        function () {
+          this.arrayholder = res.data;
+        }
+      );
+    });
+  }
+  // componentDidMount() {
+  //   return fetch('https://bhavya3.pythonanywhere.com/api/dishes/')
+  //     .then(response => response.json())
+  //     .then(responseJson => {
+  //       this.setState(
+  //         {
+  //           isLoading: false,
+  //           dishes: responseJson,
+  //         },
+  //         function () {
+  //           this.arrayholder = responseJson;
+  //         }
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }
+  //
+  // search = (text) => {
+  //   console.log(text);
+  // };
+  // clear = () => {
+  //   this.search.clear();
+  // };
 
   SearchFilterFunction(text) {
     //passing the inserted text in textinput
     const newData = this.arrayholder.filter(function (item) {
       //applying filter for the inserted text in search bar
-      const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+      const itemData = item.dish_name ? item.dish_name.toUpperCase() : "".toUpperCase();
 
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
@@ -100,27 +120,67 @@ export default class SearchScreen extends React.Component {
     let src = this.state.search;
     if (src !== "") {
       return (
-        <Card>
-          <Card.Image source={{ uri: item.image }} />
-          <Text style={{ marginBottom: 10, marginTop: 20 }} h2>
-            {item.name}
+
+        <View style={styles.divFood}>
+          <Image
+            style={styles.imageFood}
+            resizeMode="contain"
+            source={{ uri: item.dish_image }}
+          />
+          <View
+            style={{
+              height: width / 2 - 20 - 90,
+              backgroundColor: "transparent",
+              width: width / 2 - 20 - 10,
+            }}
+          />
+          <Text style={{ fontWeight: "bold", fontSize: 22, textAlign: "center" }}>
+            {item.dish_name}
           </Text>
-          <Text style={styles.price} h4>
-            {item.categorie}
+          <Text>Descp Food and Details</Text>
+          <Text style={{ fontSize: 20, color: "green" }}>
+            ${item.dish_price}
           </Text>
-          <Text style={styles.price} h4>
-            {item.price}
-          </Text>
-          <Text h4 style={styles.description}>
-            blah blah blah!!!
-          </Text>
-          <Button title="Add to Cart" onPress={() => alert("Button Clicked!")} />
-        </Card>
+
+          <TouchableOpacity onPress={() => this.onClickAddCart(item)} style={styles.cartbtn}>
+            <Text style={{ fontSize: 18, color: "white", fontWeight: "bold" }}>
+              Add Cart
+            </Text>
+            <View style={{ width: 10 }} />
+            <Icon name="ios-add-circle" size={30} color={"white"} />
+          </TouchableOpacity>
+        </View>
       );
     } else {
       return null;
     }
 
+  }
+
+  onClickAddCart(data) {
+    const itemcart = {
+      food: data,
+      quantity: 1,
+      price: data.dish_price,
+    };
+
+    AsyncStorage.getItem("cart")
+      .then((datacart) => {
+        if (datacart !== null) {
+          // We have data!!
+          const cart = JSON.parse(datacart);
+          cart.push(itemcart);
+          AsyncStorage.setItem("cart", JSON.stringify(cart));
+        } else {
+          const cart = [];
+          cart.push(itemcart);
+          AsyncStorage.setItem("cart", JSON.stringify(cart));
+        }
+        alert("Add Successfully");
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 }
 
@@ -136,5 +196,34 @@ const styles = StyleSheet.create({
   },
   description: {
     color: "#c1c4cd",
+  },
+  imageFood: {
+    width: width / 2 - 20 - 10,
+    height: width / 2 - 20 - 30,
+    backgroundColor: "transparent",
+    position: "absolute",
+    top: -45,
+  },
+  divFood: {
+    width: width / 2 - 20,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 55,
+    marginBottom: 5,
+    marginLeft: 10,
+    alignItems: "center",
+    elevation: 8,
+    shadowOpacity: 0.3,
+    shadowRadius: 50,
+    backgroundColor: "white",
+  },
+  cartbtn: {
+    width: width / 2 - 40,
+    backgroundColor: "#33c37d",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    padding: 4,
   },
 });

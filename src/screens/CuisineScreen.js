@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   StatusBar,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  SafeAreaView,
   Text,
   View,
   Dimensions,
@@ -22,7 +23,11 @@ import Cuisine from "../components/Cuisines";
 import Banner from "./Banner";
 import axios from "axios";
 
+import { LogBox } from 'react-native';
+
+
 class HomeScreen extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -38,14 +43,20 @@ class HomeScreen extends React.Component {
       });
   }
 
+  // Disable the warning
+  componentDidMount() {
+      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  };
 
   render() {
     const navigation = this.state;
     return (
       <ScrollView>
+        <View style={{ height: 20 }} />
         <Banner />
         <FlatList
           data={this.state.cuisinesData}
+          numColumns={2}
           renderItem={({ item }) => {
             return <Cuisine cuisData={item} navigation={this.props.navigation} />;
           }}
@@ -55,16 +66,6 @@ class HomeScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  divCategorie: {
-    backgroundColor: "red",
-    margin: 5,
-    alignItems: "center",
-    borderRadius: 10,
-    padding: 10,
-  },
-});
 
 export default HomeScreen;
 
