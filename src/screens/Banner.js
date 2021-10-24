@@ -42,7 +42,7 @@ export default class Banner extends React.Component {
   render() {
     return (
       <Swiper
-        style={{ height: width / 2 }}
+        style={[styles.bannerStyles]}
         showsButtons={false}
         autoplay={true}
         autoplayTimeout={2}
@@ -67,6 +67,13 @@ const styles = StyleSheet.create({
     height: width / 2,
     width: width - 40,
     borderRadius: 10,
-    marginHorizontal: 20,
   },
+  bannerStyles: {
+    height: width / 2 ,
+    shadowColor: '#171717',
+    elevation: 3,
+    shadowOffset: {width: 2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  }
 });

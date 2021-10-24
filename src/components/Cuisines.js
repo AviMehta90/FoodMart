@@ -1,6 +1,9 @@
+import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View } from 'react-native-animatable';
 import { Card, Button } from 'react-native-elements';
+import colors from '../../assets/colors/colors';
 
 class Cuisine extends React.Component {
 
@@ -9,17 +12,20 @@ class Cuisine extends React.Component {
       // const navigation = this.props.navigation;
         return (
 
+          <View style={styles.cuisinesItemWrapper}>
           <TouchableOpacity
-            style={[styles.divCategorie, { backgroundColor: "grey" }]}
             onPress={() => this.props.navigation.navigate('DishesScreen')}
           >
             <Image
-              style={{ width: 100, height: 80 }}
-              resizeMode="contain"
+              style={styles.cuisineImage}
               source={{ uri: this.props.cuisData.cuisine_image }}
             />
-            <Text style={{ fontWeight: "bold", fontSize: 22 }}>{this.props.cuisData.cuisine_name}</Text>
+            <Text style={styles.cuisineItemTitle}>{this.props.cuisData.cuisine_name}</Text>
+            <View style={styles.cuisineSelectWrapper}>
+              <Feather name={'chevron-right'} size={20} style={styles.cuisineSelectIcon}/>
+            </View>
           </TouchableOpacity>
+          </View>
             // <Card>
             //     <Card.Image
             //         source = {{uri: this.props.cuisData.cuisine_image}}
@@ -44,25 +50,47 @@ class Cuisine extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    name: {
-        color: '#5a647d',
-        fontWeight: 'bold',
-        fontSize: 30
+    cuisineImage: {
+      width: 80,
+      height: 80,
+      marginTop: 24,
+      alignSelf: 'center',
+      borderRadius: 20,
+      marginHorizontal: 20
     },
-    price: {
-        fontWeight: 'bold',
-        marginBottom: 10
+    cuisinesItemWrapper: {
+      backgroundColor: colors.secondary,
+      marginRight: 20,
+      borderRadius: 20,
+      marginBottom: 20,
+      shadowColor: '#171717',
+      elevation: 3,
+      shadowOffset: {width: 2, height: 4},
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
     },
-    description: {
-        color: '#c1c4cd'
+
+    cuisineItemTitle: {
+      textAlign: 'center',
+      fontFamily: 'monsterMed',
+      fontSize: 14,
+      marginTop: 10,
     },
-    divCategorie: {
-        backgroundColor: "red",
-        margin: 5,
-        alignItems: "center",
-        borderRadius: 10,
-        padding: 10,
-      },
+    cuisineSelectWrapper: {
+
+      alignSelf: 'center',
+      justifyContent: 'center',
+      marginTop: 20,
+      width: 40,
+      height: 40,
+      borderRadius: 40,
+      backgroundColor: colors.primary,
+      marginBottom: 20,
+    },
+    cuisineSelectIcon: {
+      alignSelf: 'center',
+      color: '#FFFFFF'
+    },
 });
 
 export default Cuisine;

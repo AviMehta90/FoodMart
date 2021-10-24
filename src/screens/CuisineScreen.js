@@ -9,20 +9,20 @@ import {
   Text,
   View,
   Dimensions,
+  Platform
 } from "react-native";
 
-var { height, width } = Dimensions.get("window");
+const { width, height } = Dimensions.get('screen');
 
-import Swiper from "react-native-swiper";
-import Icon from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from '../../assets/colors/colors';
 
-import { withNavigation } from "react-navigation";
 import Cuisine from "../components/Cuisines";
 import Banner from "./Banner";
 import axios from "axios";
 
 class HomeScreen extends React.Component {
+
+  
   constructor(props) {
     super(props);
 
@@ -40,29 +40,57 @@ class HomeScreen extends React.Component {
 
 
   render() {
-    const navigation = this.state;
     return (
-      <ScrollView>
-        <Banner />
-        <FlatList
-          data={this.state.cuisinesData}
-          renderItem={({ item }) => {
-            return <Cuisine cuisData={item} navigation={this.props.navigation} />;
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
+      <ScrollView style={styles.container}>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.titleTitle}>Delivery</Text>
+        </View>
+        <Banner/>
+        <View style={styles.cuisineWrapper}>
+          <Text style={styles.cuisineTitle}>Cuisines</Text>
+          <View style={styles.cuisinesListWrapper}>
+            <FlatList
+              data={this.state.cuisinesData}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => {
+                return <Cuisine cuisData={item} navigation={this.props.navigation} />;
+              }}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+        </View>
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  divCategorie: {
-    backgroundColor: "red",
-    margin: 5,
-    alignItems: "center",
-    borderRadius: 10,
-    padding: 10,
+  container:{
+    flex:1,
+    padding: 20,
+  },  
+  titleWrapper:{
+    marginTop: Platform.OS === 'ios' ? (0.07*width) : 0.1*width
+  },
+  titleTitle:{
+    fontFamily: "monsterSemiBold",
+    color: colors.textDark,
+    fontSize: 32,
+    marginTop: 5,
+    marginBottom: 15,
+  },
+  cuisineTitle:{
+    fontFamily: 'monsterBold', 
+    fontSize: 20, 
+    marginTop: 10, 
+    marginBottom: 10,
+  },
+  cuisineWrapper: {
+    marginTop: 20,
+  },
+  cuisinesListWrapper: {
+    paddingVertical: 0
   },
 });
 

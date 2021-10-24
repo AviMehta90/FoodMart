@@ -24,6 +24,9 @@ class Dishes extends React.Component {
                 </Text>
                 <Button
                     title='Go Back'
+                    style={{
+                        fontFamily:"monsterBold",
+                    }}
                     onPress={() => this.props.navigation.navigate('CuisineScreen')}
                 />
             </Card>
@@ -38,10 +41,11 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     price: {
-        fontWeight: 'bold',
+        fontFamily:"monsterMed",
         marginBottom: 10
     },
     description: {
+        fontFamily:"monsterReg",
         color: '#c1c4cd'
     }
 });

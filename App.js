@@ -1,9 +1,9 @@
-
+import * as Font from 'expo-font';
 import React, { useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerContent } from './src/screens/DrawerContent';
+import useFonts from './hooks/useFonts';
+import AppLoading from 'expo-app-loading';
 
 import MainTabScreen from './src/screens/MainTabScreen';
 
@@ -12,8 +12,6 @@ import { AuthContext } from './src/components/context';
 import RootStackScreen from './src/auth/RootStackScreen';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const Drawer = createDrawerNavigator();
 
 const App = () => {
 
@@ -104,6 +102,22 @@ const App = () => {
     }, 1000);
   }, []);
 
+  const [IsReady, SetIsReady] = React.useState(false);
+
+  const LoadFonts = async () => {
+    await useFonts();
+  };
+
+  if (!IsReady) {
+    return (
+      <AppLoading
+        startAsync={LoadFonts}
+        onFinish={() => SetIsReady(true)}
+        onError={() => {}}
+      />
+    );
+  }
+
   if( loginState.isLoading ) {
     return(
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -111,6 +125,7 @@ const App = () => {
       </View>
     );
   }
+
   return (
     <AuthContext.Provider value={authContext}>
     <NavigationContainer>

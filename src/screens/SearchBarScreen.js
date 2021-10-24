@@ -11,9 +11,15 @@ import {
   FlatList,
   Platform,
   Icon,
+  Dimensions,
 } from "react-native";
+
 import axios from "axios";
+import { Ionicons } from '@expo/vector-icons';
+import colors from '../../assets/colors/colors';
 import { Card, Button, SearchBar } from "react-native-elements";
+
+const { width, height } = Dimensions.get('screen')
 
 export default class SearchScreen extends React.Component {
   constructor(props) {
@@ -77,10 +83,23 @@ export default class SearchScreen extends React.Component {
     }
 
     return (
-      <View>
+      <View style={styles.searchWrapper}>
         <SearchBar
+          inputStyle={styles.searchBar}
+          inputContainerStyle={styles.searchBarInputContainer}
+          containerStyle={styles.searchBarContainer}
           round
-          placeholder="Type Here..."
+          searchIcon={() => {
+            return <Ionicons 
+            name={'search-sharp'} 
+            size={30} 
+            color={'#FFFFFF'} 
+            style={
+              {
+                marginLeft: 10,
+              }
+            } />;
+          }}
           onChangeText={(text) => this.SearchFilterFunction(text)}
           onClear={(text) => this.SearchFilterFunction("")}
           value={this.state.search}
@@ -125,6 +144,31 @@ export default class SearchScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  searchWrapper: {
+    marginTop: Platform.OS === 'ios' ? 50 : 0.075*height,
+  },
+  searchBar:{
+
+    paddingHorizontal: 20,
+    backgroundColor: '#FFF',
+    borderRadius: 20,
+
+  },
+  searchBarInputContainer:{
+    backgroundColor: '#272343',
+    
+  },
+  searchBarContainer:{
+    padding: 0,
+    backgroundColor: "#272343",
+    marginHorizontal: 0.025*width,
+    borderRadius: 20,
+    elevation: 5,
+    shadowColor: '#272727',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+  },
   name: {
     color: "#5a647d",
     fontWeight: "bold",

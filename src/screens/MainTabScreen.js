@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { Platform, Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('screen');
+
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -17,6 +20,8 @@ import ProfileScreen from './ProfileScreen';
 import DishScreen from './DishScreen';
 import HomeScreen from './CuisineScreen';
 
+import colors from '../../assets/colors/colors'
+
 
 const HomeStack = createNativeStackNavigator();
 const SearchStack = createNativeStackNavigator();
@@ -31,31 +36,43 @@ const MainTabScreen = () => (
         let iconName;
 
         if (route.name === 'Home') {
-          iconName = focused ? 'fast-food' : 'fast-food-outline'
+          iconName = focused ? 'fast-food' : 'fast-food-outline';
+          color = focused ? '#272343' : '#000'
         } else if (route.name === 'Search') {
           iconName = focused ? 'search-sharp' : 'search-outline';
+          color = focused ? '#272343' : '#000'
         } else if (route.name === 'Profile') {
           iconName = focused ? 'person' : 'person-outline';
+          color = focused ? '#272343' : '#000'
         } else if (route.name === 'BookTable') {
           iconName = focused ? 'bookmark' : 'bookmark-outline';
+          color = focused ? '#272343' : '#000'
         } else if (route.name === 'Cart') {
           iconName = focused ? 'cart' : 'cart-outline';
+          color = focused ? '#272343' : '#000'
         }
 
         // You can return any component that you like here!
         return <Ionicons name={iconName} size={size} color={color} />;
       },
       headerShown: false,
-      tabBarShowLabel: true,
+      tabBarShowLabel: false,
         tabBarStyle:{
           position: 'absolute',
-          botton: 30,
-          left: 20,
-          right: 20,
-          elevation: 0,
+          left: (0.05*width),
+          right: (0.05*width),
+          alignSelf: 'center',
+          justifyContent: 'center',
+          bottom: 20,
+          elevation: 4,
           backgroundColor: '#ffffff',
           borderRadius: 15,
-          height: 90,
+          height: 80,
+          paddingTop: Platform.OS === 'ios' ? 20 : 0,
+          shadowColor: '#171717',
+          shadowOffset: {width: 2, height: 4},
+          shadowOpacity: 0.5,
+          shadowRadius: 3,
         }
     })}
     >
@@ -74,33 +91,18 @@ const MainTabScreen = () => (
       <Tab.Screen
         name="Search"
         component={SearchStackScreen}
-        screenOptions={{
-          tabBarLabel: 'Search',
-        }}
       />
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        screenOptions={{
-          tabBarLabel: 'Profile',
-        }}
       />
       <Tab.Screen
         name="BookTable"
         component={BookTableStackScreen}
-        screenOptions={{
-          tabBarLabel: 'BookTable',
-          tabBarIcon: () => {
-            <MaterialCommunityIcons name="table-furniture" size={24} color="black" />
-          }
-        }}
       />
       <Tab.Screen
         name="Cart"
         component={CartScreen}
-        screenOptions={{
-          tabBarLabel: 'BookTable',
-        }}
       />
     </Tab.Navigator>
 );
@@ -108,14 +110,10 @@ const MainTabScreen = () => (
 export default MainTabScreen;
 
 const HomeStackScreen = ({navigation}) => (
-<HomeStack.Navigator initialRouteName="CuisineScreen" screenOptions={{
-        headerStyle: {
-        backgroundColor: '#1f65ff',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-        fontWeight: 'bold'
-      }
+<HomeStack.Navigator 
+initialRouteName="CuisineScreen" 
+screenOptions={{
+        headerShown: false,
     }}>
         {/* <HomeStack.Screen name="MainTab" component={NewAppNavigator}/> */}
         <HomeStack.Screen name="CuisineScreen" component={HomeScreen}/>
@@ -124,15 +122,22 @@ const HomeStackScreen = ({navigation}) => (
 );
 
 const SearchStackScreen = ({navigation}) => (
-<SearchStack.Navigator screenOptions={{
-        headerStyle: {
-        backgroundColor: '#1f65ff',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-        fontWeight: 'bold'
-        }
-    }}>
+<SearchStack.Navigator
+screenOptions={{
+  headerShown:false,
+}}
+  
+    //     screenOptions={{
+    //       title: '',
+    //       headerStyle: {
+    //       backgroundColor: '#272343',
+    //       },
+    //       headerTintColor: '#fff',
+    //       headerTitleStyle: {
+    //       fontWeight: 'bold'
+    //     }
+    // }}
+    >
         <SearchStack.Screen name="SearchBar" component={SearchBarScreen}/>
 </SearchStack.Navigator>
 );
@@ -140,14 +145,8 @@ const SearchStackScreen = ({navigation}) => (
 
 const BookTableStackScreen = ({navigation}) => (
   <BookTableStack.Navigator screenOptions={{
-          headerStyle: {
-          backgroundColor: '#1f65ff',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-          fontWeight: 'bold'
-          }
-      }}>
+    headerShown: false,
+}}>
           <BookTableStack.Screen name="BookTableForm" component={TableFormScreen}/>
   </BookTableStack.Navigator>
   );
