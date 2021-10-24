@@ -13,11 +13,11 @@ import {
   ActivityIndicator,
   FlatList,
   Platform,
-  Icon,
 } from "react-native";
 
 import axios from "axios";
 import { Ionicons } from '@expo/vector-icons';
+import Icon from "react-native-vector-icons/Ionicons";
 import colors from '../../assets/colors/colors';
 
 
