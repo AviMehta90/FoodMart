@@ -1,17 +1,19 @@
 import React from "react";
 import {
-  ScrollView,
-  StatusBar,
   FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Text,
   View,
+  Text,
+  StyleSheet,
   Dimensions,
+  Platform,
 } from "react-native";
+
 import Dishes from "../components/Dishes";
+import colors from '../../assets/colors/colors';
+
 import axios from "axios";
+
+var { width, height } = Dimensions.get('window');
 
 export default class DishScreen extends React.Component {
   constructor(props) {
@@ -29,14 +31,21 @@ export default class DishScreen extends React.Component {
 
   render() {
     const { cuisine_id } = this.props.route.params;
-    const { navigation } = this.state;
     return (
-      <View>
+      <View style={styles.dishContainer}>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.titleTitle}>Dishes</Text>
+        </View>
         <FlatList
           data={this.state.dishes}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             return (
-              <Dishes dishData={item} cuisineid={cuisine_id} navigation={this.props.navigation} />
+              <Dishes 
+                dishData={item} 
+                cuisineid={cuisine_id}
+                navigation={this.props.navigation}
+              />
             );
           }}
           keyExtractor={(item, index) => index.toString()}
@@ -45,3 +54,23 @@ export default class DishScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+
+  dishContainer: {
+    flex:1,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 100
+  },
+  titleWrapper:{
+    marginTop: Platform.OS === 'ios' ? (0.07*width) : 0.05*width
+  },
+  titleTitle:{
+    fontFamily: "monsterSemiBold",
+    color: colors.textDark,
+    fontSize: 32,
+    marginTop: 5,
+  },
+
+});

@@ -1,42 +1,43 @@
 import React from "react";
 import {
   Text,
-  FlatList,
   Image,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  SafeAreaView,
   View,
-  ScrollView,
-  TextInput,
+  Platform,
 } from "react-native";
-import { Card, Button } from "react-native-elements";
+
+import Icon from "react-native-vector-icons/Ionicons";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+var { height, width } = Dimensions.get("window");
 
 import colors from '../../assets/colors/colors';
 
-import Icon from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-var { height, width } = Dimensions.get("window");
-
 export default class Dishes extends React.Component {
   render() {
-    const idd = JSON.stringify(this.props.cuisineid);
-    const item_id = this.props.dishData.cuisine_id;
+    const item_is_popular = this.props.dishData.cuisine_id;
     const foodItem = this.props.dishData;
     return (
-       (idd === item_id) ?
-       <View style={styles.CardWrapper}>
+        (item_is_popular) ?
+        <View style={styles.popCardWrapper}>
             <View>
-            <Text style={styles.TitlesTitle}>
-                        {this.props.dishData.dish_name}
-                    </Text>
-                <View style={styles.TitlesWrapper}>
-                    <Text style={styles.TitlesDesc}>
-                        Ingredients
-                    </Text>
+                <View>
+                    <View style={styles.popTopWapper}>
+                        <Icon name={'heart-sharp'} size={15}></Icon>
+                        <Text style={styles.popTopText}>Top of the week</Text>
+                    </View>
+                    <View style={styles.popTitlesWrapper}>
+                        <Text style={styles.popTitlesTitle}>
+                            {this.props.dishData.dish_name}
+                        </Text>
+                        <Text style={styles.popTitlesDesc}>Food Desc</Text>
+                    </View>
                 </View>
-                <View style={styles.BottomWrapper}>
+                <View style={styles.popBottomWrapper}>
                     <View style={styles.addButton}>
                         <TouchableOpacity onPress={() => this.onClickAddCart(foodItem)}>
                             <Icon name="ios-add" size={30} color={colors.textLight} />
@@ -49,43 +50,14 @@ export default class Dishes extends React.Component {
                     </View>
                 </View>
             </View>
-            <View style={styles.CardRight}>
+            <View style={styles.popCardRight}>
                 <Image
-                    style={styles.CardImage}
+                    style={styles.popCardImage}
                     source={{ uri: this.props.dishData.dish_image }}
                 />
             </View>
         </View>
         : null
-        // <View style={styles.divFood}>
-        //   <Image
-        //     style={styles.imageFood}
-        //     resizeMode="contain"
-      //       source={{ uri: this.props.dishData.dish_image }}
-      //     />
-      //     <View
-      //       style={{
-      //         height: width / 2 - 20 - 90,
-      //         backgroundColor: "transparent",
-      //         width: width / 2 - 20 - 10,
-      //       }}
-      //     />
-      //     <Text style={{ fontWeight: "bold", fontSize: 22, textAlign: "center" }}>
-      //       {this.props.dishData.dish_name}
-      //     </Text>
-      //     <Text>Descp Food and Details</Text>
-      //     <Text style={{ fontSize: 20, color: "green" }}>
-      //       ${this.props.dishData.dish_price}
-      //     </Text>
-      //     <TouchableOpacity onPress={() => this.onClickAddCart(foodItem)} style={styles.cartbtn}>
-      //       <Text style={{ fontSize: 18, color: "white", fontWeight: "bold" }}>
-      //         Add Cart
-      //       </Text>
-      //       <View style={{ width: 10 }} />
-      //       <Icon name="ios-add-circle" size={30} color={"white"} />
-      //     </TouchableOpacity>
-      //   </View>
-      //  : null
     );
   }
 
@@ -118,7 +90,7 @@ export default class Dishes extends React.Component {
 
 const styles = StyleSheet.create({
 
-  CardWrapper: {
+  popCardWrapper: {
     width: 0.85*width,
     backgroundColor: colors.secondary,
     paddingTop: 20,
@@ -135,29 +107,29 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
 
-  TopWapper: {
+  popTopWapper: {
     flexDirection: 'row'
   },
-  TopText: {
+  popTopText: {
        alignItems: 'center',
        marginLeft: 10,
        fontFamily: 'monsterMed'
   },
-    TitlesWrapper: {
+    popTitlesWrapper: {
         marginTop: 20,
 
     },
-    TitlesTitle: {
+    popTitlesTitle: {
         fontFamily: 'monsterMed',
-        fontSize: 25,
+        fontSize: 20,
         color: colors.textDark,
     },
-    TitlesDesc: {
+    popTitlesDesc: {
         fontFamily: 'monsterMed',
         fontSize: 12,
         color: 'grey',
     },
-    BottomWrapper: {
+    popBottomWrapper: {
         alignItems: 'center',
         marginTop: 10,
         flexDirection: 'row'
@@ -171,19 +143,20 @@ const styles = StyleSheet.create({
         marginLeft: -20
     },
     dishPriceWrapper: {
-      marginLeft: 10,
-  },
-  dishPriceText: {
-      color: colors.price,
-      fontFamily: 'monsterReg',
-      fontSize: 20,
-  },
-    CardRight: {
+        marginLeft: 10,
+    },
+    dishPriceText: {
+        color: colors.price,
+        fontFamily: 'monsterReg',
+        fontSize: 20,
+    },
+    popCardRight: {
         marginLeft: 20,
     },
-    CardImage: {
+    popCardImage: {
         width: 210,
         height: 125,
         
     },
+
 });
