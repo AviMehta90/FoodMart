@@ -19,8 +19,9 @@ import TableFormScreen from './BookTableFormScreen';
 import ProfileScreen from './ProfileScreen';
 import DishScreen from './DishScreen';
 import HomeScreen from './CuisineScreen';
+import CartStackScreen from './CartStackScreen';
 
-import colors from '../../assets/colors/colors'
+import colors from '../../assets/colors/colors';
 
 
 const HomeStack = createNativeStackNavigator();
@@ -102,7 +103,7 @@ const MainTabScreen = () => (
       />
       <Tab.Screen
         name="Cart"
-        component={CartScreen}
+        component={CartStackScreen}
       />
     </Tab.Navigator>
 );
@@ -110,8 +111,8 @@ const MainTabScreen = () => (
 export default MainTabScreen;
 
 const HomeStackScreen = ({navigation}) => (
-<HomeStack.Navigator 
-initialRouteName="CuisineScreen" 
+<HomeStack.Navigator
+initialRouteName="CuisineScreen"
 screenOptions={{
         headerShown: false,
     }}>
@@ -126,7 +127,7 @@ const SearchStackScreen = ({navigation}) => (
 screenOptions={{
   headerShown:false,
 }}
-  
+
     //     screenOptions={{
     //       title: '',
     //       headerStyle: {

@@ -41,7 +41,7 @@
     "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0"
+    "@babel/core": "^7.12.9"
   },
   "private": true
 }
