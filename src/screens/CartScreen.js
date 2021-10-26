@@ -13,26 +13,16 @@ import {
 var { width } = Dimensions.get("window");
 import Icon from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useNavigation} from "@react-navigation/native";
 
 export default class CartScreen extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       dataCart: [],
       refreshing: false,
     };
-
-    // AsyncStorage.getItem("cart")
-    //   .then((cart) => {
-    //       if (cart !== null) {
-    //       const cartfood = JSON.parse(cart);
-    //       this.setState({ dataCart: cartfood, refreshing: false,});
-    //     }
-    //     })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
-
   };
 
   componentDidMount(){
@@ -52,8 +42,6 @@ export default class CartScreen extends Component {
       });
   }
 
-
-
   handleRefresh = () => {
         this.setState({
             refreshing: true,
@@ -66,6 +54,7 @@ export default class CartScreen extends Component {
 
   render() {
     const dcart = (this.state.dataCart);
+    const navigation = (this.props.navigation);
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <View style={{ height: 20 }} />
@@ -81,7 +70,7 @@ export default class CartScreen extends Component {
 
         <Text style={{fontSize: 20, color:"#33c37d"}}>${this.onLoadTotal()}</Text>
 
-        <TouchableOpacity style={styles.checkoutbtn}>
+        <TouchableOpacity style={styles.checkoutbtn} onPress={() => navigation.navigate("Payment")}>
           <Text style={styles.checkout}>CHECKOUT</Text>
         </TouchableOpacity>
 
@@ -194,7 +183,7 @@ quantity: {
 },
 checkoutbtn: {
   backgroundColor: "#33c37d",
-  width: width - 40,
+  width: width - 10,
   alignItems: "center",
   padding: 10,
   borderRadius: 5,
