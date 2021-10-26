@@ -209,13 +209,8 @@ quantity: {
   fontSize: 18,
 },
 checkoutbtn: {
-<<<<<<< HEAD
   backgroundColor: "#272343",
   width: width - 40,
-=======
-  backgroundColor: "#33c37d",
-  width: width - 10,
->>>>>>> 26ecacbb20874b2e2f5ab18877e2fdfa206e658a
   alignItems: "center",
   padding: 10,
   borderRadius: 5,
