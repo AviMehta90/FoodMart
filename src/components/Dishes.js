@@ -130,9 +130,8 @@ const styles = StyleSheet.create({
     shadowColor: '#171717',
     elevation: Platform.OS === 'ios' ? 1 : 4,
     shadowOffset: {width: 2, height: 4},
-    shadowOpacity: Platform.OS === 'ios' ? 1 : 0.4,
+    shadowOpacity: Platform.OS === 'ios' ? 0.2 : 0.4,
     shadowRadius: 3,
-    overflow: 'hidden'
   },
 
   TopWapper: {
@@ -180,10 +179,14 @@ const styles = StyleSheet.create({
   },
     CardRight: {
         marginLeft: 20,
+        width: 135,
+        overflow: 'hidden',
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
     },
     CardImage: {
-        width: 210,
-        height: 125,
-        
+        width: 150,
+        height: 110,
+        borderRadius: 20,
     },
 });

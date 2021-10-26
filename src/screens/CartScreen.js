@@ -9,6 +9,7 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
+  Platform,
 } from "react-native";
 var { width } = Dimensions.get("window");
 import Icon from "react-native-vector-icons/Ionicons";
@@ -67,19 +68,23 @@ export default class CartScreen extends Component {
   render() {
     const dcart = (this.state.dataCart);
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <View style={{ height: 20 }} />
-
+      <View style={styles.container}>
+        <View>
+          <Text style={{fontFamily: 'monsterBold', fontSize: 30}}>CART ITEMS</Text>
+        </View>
         <FlatList
+          style={{width: width,}}
+          showsVerticalScrollIndicator={false}
           data={this.state.dataCart}
-          ListHeaderComponent={()=><Text style={{ fontSize: 32, fontWeight: "bold", color: "#33c37d" }}>Cart food</Text>}
           renderItem={({ item, index }) => this.renderCart(item, index)}
           keyExtractor={(item, index) => index.toString()}
           onRefresh={() => this.handleRefresh()}
           refreshing={this.state.refreshing}
         />
 
-        <Text style={{fontSize: 20, color:"#33c37d"}}>${this.onLoadTotal()}</Text>
+        <Text style={{fontSize: 20, color:"#272343", fontFamily: 'monsterMed'}}>
+          ${this.onLoadTotal()}
+        </Text>
 
         <TouchableOpacity style={styles.checkoutbtn}>
           <Text style={styles.checkout}>CHECKOUT</Text>
@@ -95,22 +100,29 @@ export default class CartScreen extends Component {
     <View style={styles.main}>
         <Image
           resizeMode={"contain"}
-          style={{ width: width / 3, height: width / 3 }}
+          style={{ width: 100, height: 100, borderRadius: 100 }}
           source={{ uri: item.food.dish_image }}
         />
         <View style={styles.parent}>
           <View>
-            <Text style={{ fontWeight: "bold", fontSize: 20 }}>{item.food.dish_name}</Text>
-            <Text>Lorem Ipsum de food</Text>
+            <Text style={{ fontSize: 20, fontFamily: 'monsterMed' }}>{item.food.dish_name}</Text>
+            <Text style={{fontFamily: 'monsterMed'}}>Lorem Ipsum de food</Text>
           </View>
           <View style={styles.pricemain}>
-            <Text style={styles.price}>${item.price * item.quantity}</Text>
+            <Text style={[styles.price,{fontFamily: 'monsterBold'}]}>${item.price * item.quantity}</Text>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <TouchableOpacity onPress={() => this.onChangeQual(i, false)}>
                 <Icon
                   name="ios-remove-circle"
                   size={35}
-                  color={"#33c37d"}
+                  color={"#272343"}
+                  style={{
+                    shadowColor: '#171717',
+                    elevation: Platform.OS === 'ios' ? 1 : 4,
+                    shadowOffset: {width: 2, height: 4},
+                    shadowOpacity: Platform.OS === 'ios' ? 0.2 : 0.2,
+                    shadowRadius: 3,
+                  }}
                 />
               </TouchableOpacity>
               <Text style={styles.quantity}>{item.quantity}</Text>
@@ -118,7 +130,14 @@ export default class CartScreen extends Component {
                 <Icon
                   name="ios-add-circle"
                   size={35}
-                  color={"#33c37d"}
+                  color={"#272343"}
+                  style={{
+                    shadowColor: '#171717',
+                    elevation: Platform.OS === 'ios' ? 1 : 4,
+                    shadowOffset: {width: 2, height: 4},
+                    shadowOpacity: Platform.OS === 'ios' ? 0.2 : 0.2,
+                    shadowRadius: 3,
+                  }}
                 />
               </TouchableOpacity>
             </View>
@@ -163,10 +182,17 @@ export default class CartScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    marginTop: Platform.OS === 'ios' ? 40 : 30,
+    marginBottom: 50,
+    flex: 1, 
+    alignItems: "center", 
+    justifyContent: "center" 
+  },
   main: {
-    width: width - 20,
-    margin: 10,
-    backgroundColor: "transparent",
+    marginHorizontal: 25,
+    backgroundColor: "#E3F6F5",
     flexDirection: "row",
     borderBottomWidth: 2,
     borderColor: "#cccccc",
@@ -183,17 +209,18 @@ pricemain: {
     justifyContent: "space-between",
   },
   price: {
+    fontFamily: 'monsterBold',
     fontWeight: "bold",
-    color: "#33c37d",
+    color: "#272343",
     fontSize: 20,
   },
 quantity: {
+  fontFamily: 'monsterBold',
   paddingHorizontal: 8,
-  fontWeight: "bold",
   fontSize: 18,
 },
 checkoutbtn: {
-  backgroundColor: "#33c37d",
+  backgroundColor: "#272343",
   width: width - 40,
   alignItems: "center",
   padding: 10,
@@ -202,7 +229,7 @@ checkoutbtn: {
 },
 checkout: {
   fontSize: 24,
-  fontWeight: "bold",
+  fontFamily: 'monsterBold',
   color: "white",
 },
 });

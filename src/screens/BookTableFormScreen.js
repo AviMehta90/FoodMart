@@ -1,90 +1,11 @@
-// import React, { useState, createRef } from 'react';
-// import { Text, View, } from 'react-native';
-// import { Modal, Picker, Label, FormItem } from 'react-native-form-component';
-//
-//
-// const BookTableForm = ({navigation}) => {
-//
-//   const [data, setData] = useState({
-//     bookingName: "",
-//     bookingNum: "",
-//     people: "",
-//     time: Date(),
-//     stateChange: false,
-//   });
-//
-//   const addBookName = (val) => {
-//     setData({
-//       ...data,
-//       bookingName: val,
-//       stateChange: true
-//     })
-//   }
-//
-//   const addBookNum = (val) => {
-//     setData({
-//       ...data,
-//       bookingNum: val,
-//     })
-//   }
-//
-//   const addPersons = (val) => {
-//     setData({
-//       ...data,
-//       people: val,
-//     })
-//   }
-//
-//
-//   return (
-//     <View>
-//       <View>
-//         <FormItem
-//           label="Booking Name"
-//           isRequired
-//           value={data.bookingName}
-//           onChangeText={(bname) => addBookName(bname)}
-//         />
-//         <FormItem
-//           label="Booking Number"
-//           isRequired
-//           value={data.bookingNum}
-//           onChangeText={(bnum) => addBookNum(bnum)}
-//         />
-//         <Picker
-//           items={[
-//             { label: 'Two', value: 2 },
-//             { label: 'Three', value: 3 },
-//             { label: 'Four', value: 4 },
-//             { label: 'Five', value: 5 },
-//             { label: 'Six', value: 6 },
-//             { label: 'Seven', value: 7 },
-//             { label: 'Eight', value: 8 },
-//           ]}
-//           label="Number of People"
-//           selectedValue={data.people}
-//           onSelection={(item) => addPersons(item)}
-//         />
-//       </View>
-//       <View>
-//           <Text>{data.time}</Text>
-//       </View>
-//     </View>
-//
-//   );
-//
-// }
-//
-// export default BookTableForm;
-
-
 import React, {Component, useState} from "react";
 
-import { Text, View,StyleSheet,Button,Modal,Pressable ,Icon} from 'react-native';
+import { Text, View,StyleSheet,Button,Modal,Pressable ,Icon, Platform} from 'react-native';
 import { Provider ,Appbar, Avatar,TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Datetime from "./Datetime";
 import axios from 'axios';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const BookTableForm = () => {
@@ -106,11 +27,13 @@ const BookTableForm = () => {
     setDate(currentDate);
 
     let tempData = new Date(currentDate);
-    let fDate = tempData.getFullYear() + '-' + (tempData.getMonth() + 1) + '-' + tempData.getDate();
-    let fTime = tempData.getHours() + ':' + tempData.getMinutes();
+    let fDate = tempData.getDate() + '/' + (tempData.getMonth() + 1);
+    let fTime = (tempData.getHours() - 12) + ':' + tempData.getMinutes();
+
     setDateText(fDate);
     setTimeText(fTime);
   };
+
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
@@ -126,53 +49,64 @@ const BookTableForm = () => {
 
 
   const handleClick = async () => {
-        axios.post('https://bhavya3.pythonanywhere.com/api/bookings', {
-          customer_name:name,
-          phone_num:number,
-          no_of_people:count,
-          booking_date:datetext,
-          booking_time:timetext,})
-        .then(response => console.log(response.data));
+    axios.post('https://bhavya3.pythonanywhere.com/api/bookings', {
+      customer_name: name,
+      phone_num: number,
+      no_of_people: count,
+      booking_date: datetext,
+      booking_time: timetext,
+    })
+    .then(response => console.log(response.data));
    };
+
   return (
     <Provider>
         <View style={styles.mainbox}>
-            <Text style={styles.labelText}>Name:</Text>
+            <Text style={styles.labelText}>Name</Text>
             <TextInput
                 style={styles.inputText}
                 placeholder="Enter Name"
                 value={name}
                 onChangeText={name => setName(name)}
             />
-          <Text style={styles.labelText}>Contact:</Text>
+          <Text style={styles.labelText}>Contact</Text>
             <TextInput
                 style={styles.inputText}
                 placeholder="Enter Contact Details"
                 onChangeText={number => setNumber(number)}
             />
-          <Text style={styles.labelText}>Number of people:</Text>
+          <Text style={styles.labelText}>Number of people</Text>
             <TextInput
                 style={styles.inputText}
                 placeholder="Count"
                 onChangeText={count => setCount(count)}
             />
             <View>
-              <Text>{datetext}</Text>
-                <Text>{timetext}</Text>
-
+              <Text>Selected Date: {datetext}</Text>
+              <Text>Selected Time: {timetext}</Text>
               <View>
-                <Button onPress={showDatepicker} title="Show date picker!" />
+                <TouchableOpacity onPress={showDatepicker}>
+                  <View>
+                    <Text>Select Date</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
               <View>
-                <Button onPress={showTimepicker} title="Show time picker!" />
+                <TouchableOpacity onPress={showTimepicker}>
+                  <View>
+                    <Text>Select Time</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
               {show && (
                 <DateTimePicker
                   testID="dateTimePicker"
+                  minimumDate={new Date()}
                   value={date}
                   mode={mode}
-                  is24Hour={true}
+                  is24Hour={false}
                   display="default"
+                  minuteInterval={30}
                   onChange={onChange}
                 />
               )}
@@ -187,6 +121,8 @@ const BookTableForm = () => {
     </Provider>
   );
 };
+
+
 const styles = StyleSheet.create({
   title:{
     margin: 10,
@@ -194,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 35
   },
   mainbox:{
-    textAlign:'center',
+    marginTop: Platform.OS === 'ios' ? 40 : 30,
     margin: 15,
   },
   textstyle:{

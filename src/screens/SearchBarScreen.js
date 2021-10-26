@@ -103,35 +103,38 @@ export default class SearchScreen extends React.Component {
     }
 
     return (
-      <View style={styles.searchWrapper}>
-        <SearchBar
-          inputStyle={styles.searchBar}
-          inputContainerStyle={styles.searchBarInputContainer}
-          containerStyle={styles.searchBarContainer}
-          round
-          searchIcon={() => {
-            return <Ionicons 
-            name={'search-sharp'} 
-            size={30} 
-            color={'#FFFFFF'} 
-            style={
-              {
-                marginLeft: 10,
-              }
-            } />;
-          }}
-          onChangeText={(text) => this.SearchFilterFunction(text)}
-          onClear={(text) => this.SearchFilterFunction("")}
-          value={this.state.search}
-        />
-        <FlatList
-          data={this.state.dishes}
-          renderItem={({ item }) => this.renderItem(item)}
-          enableEmptySections={true}
-          style={{ marginTop: 10 }}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
+      <View style={styles.container}>
+        <View style={styles.searchWrapper}>
+          <SearchBar
+            inputStyle={styles.searchBar}
+            inputContainerStyle={styles.searchBarInputContainer}
+            containerStyle={styles.searchBarContainer}
+            round
+            searchIcon={() => {
+              return <Ionicons 
+              name={'search-sharp'} 
+              size={30} 
+              color={'#FFFFFF'} 
+              style={
+                {
+                  marginLeft: 10,
+                }
+              } />;
+            }}
+            onChangeText={(text) => this.SearchFilterFunction(text)}
+            onClear={(text) => this.SearchFilterFunction("")}
+            value={this.state.search}
+          />
+        </View>
+          <FlatList
+            data={this.state.dishes}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => this.renderItem(item)}
+            enableEmptySections={true}
+            style={styles.dishWrapper, [{ marginTop: 10 }]}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
     );
   }
 
@@ -139,36 +142,63 @@ export default class SearchScreen extends React.Component {
     let src = this.state.search;
     if (src !== "") {
       return (
-
-        <View style={styles.divFood}>
-          <Image
-            style={styles.imageFood}
-            resizeMode="contain"
-            source={{ uri: item.dish_image }}
-          />
-          <View
-            style={{
-              height: width / 2 - 20 - 90,
-              backgroundColor: "transparent",
-              width: width / 2 - 20 - 10,
-            }}
-          />
-          <Text style={{ fontWeight: "bold", fontSize: 22, textAlign: "center" }}>
-            {item.dish_name}
-          </Text>
-          <Text>Descp Food and Details</Text>
-          <Text style={{ fontSize: 20, color: "green" }}>
-            ${item.dish_price}
-          </Text>
-
-          <TouchableOpacity onPress={() => this.onClickAddCart(item)} style={styles.cartbtn}>
-            <Text style={{ fontSize: 18, color: "white", fontWeight: "bold" }}>
-              Add Cart
-            </Text>
-            <View style={{ width: 10 }} />
-            <Icon name="ios-add-circle" size={30} color={"white"} />
-          </TouchableOpacity>
+        <View style={[styles.CardWrapper, styles.shadow]}>
+          <View style={styles.innerWrapper}>
+                <View style={styles.TitlesWrapper}>
+                <Text style={styles.TitlesTitle}>{item.dish_name}</Text>
+                    <Text style={styles.TitlesDesc}>
+                      Ingredients
+                    </Text>
+                    <View style={styles.BottomWrapper}>
+                    <View style={styles.dishPriceWrapper}>
+                        <Text style={styles.dishPriceText}>
+                           ${item.dish_price}   
+                        </Text>
+                </View>
+                </View>
+              </View>
+              <View style={styles.CardRight}>
+                <Image
+                    style={styles.CardImage}
+                    source={{ uri: item.dish_image }}
+                />
+              </View>
+          </View>
+            <TouchableOpacity onPress={() => this.onClickAddCart(item)}>
+            <View style={styles.addButton}>
+                <Icon name="ios-add" size={30} color={colors.textLight} />
+            </View>
+            </TouchableOpacity>
         </View>
+        // <View style={styles.divFood}>
+        //   <Image
+        //     style={styles.imageFood}
+        //     resizeMode="contain"
+        //     source={{ uri: item.dish_image }}
+        //   />
+        //   <View
+        //     style={{
+        //       height: width / 2 - 20 - 90,
+        //       backgroundColor: "transparent",
+        //       width: width / 2 - 20 - 10,
+        //     }}
+        //   />
+        //   <Text style={{ fontWeight: "bold", fontSize: 22, textAlign: "center" }}>
+        //     {item.dish_name}
+        //   </Text>
+        //   <Text>Descp Food and Details</Text>
+        //   <Text style={{ fontSize: 20, color: "green" }}>
+        //     ${item.dish_price}
+        //   </Text>
+
+        //   <TouchableOpacity onPress={() => this.onClickAddCart(item)} style={styles.cartbtn}>
+        //     <Text style={{ fontSize: 18, color: "white", fontWeight: "bold" }}>
+        //       Add Cart
+        //     </Text>
+        //     <View style={{ width: 10 }} />
+        //     <Icon name="ios-add-circle" size={30} color={"white"} />
+        //   </TouchableOpacity>
+        // </View>
       );
     } else {
       return null;
@@ -204,8 +234,15 @@ export default class SearchScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    marginBottom: 100,
+    alignItems: 'center'
+  },
   searchWrapper: {
     marginTop: Platform.OS === 'ios' ? 50 : 0.075*height,
+    width: width
   },
   searchBar:{
 
@@ -229,45 +266,86 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2,
   },
-  name: {
-    color: "#5a647d",
-    fontWeight: "bold",
-    fontSize: 30,
+
+
+  CardWrapper: {
+    width: 0.85*width,
+    backgroundColor: colors.secondary,
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginVertical: 10,
+    marginHorizontal: 5,
   },
-  price: {
-    fontWeight: "bold",
-    marginBottom: 10,
+
+  shadow: {
+    shadowColor: '#000',
+    elevation: Platform.OS === 'ios' ? 1000 : 4,
+    shadowOffset: {width: 2, height: 4},
+    shadowOpacity: Platform.OS === 'ios' ? 0.2 : 0.4,
+    shadowRadius: 3,
   },
-  description: {
-    color: "#c1c4cd",
+
+  innerWrapper: {
+    flexDirection: 'row',
+    paddingTop: 20,
   },
-  imageFood: {
-    width: width / 2 - 20 - 10,
-    height: width / 2 - 20 - 30,
-    backgroundColor: "transparent",
-    position: "absolute",
-    top: -45,
+
+
+  TopWapper: {
+    flexDirection: 'row'
   },
-  divFood: {
-    width: width / 2 - 20,
-    padding: 10,
-    borderRadius: 10,
-    marginTop: 55,
-    marginBottom: 5,
-    marginLeft: 10,
-    alignItems: "center",
-    elevation: 8,
-    shadowOpacity: 0.3,
-    shadowRadius: 50,
-    backgroundColor: "white",
+  TopText: {
+       alignItems: 'center',
+       marginLeft: 10,
+       fontFamily: 'monsterMed'
   },
-  cartbtn: {
-    width: width / 2 - 40,
-    backgroundColor: "#33c37d",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-    padding: 4,
+    TitlesWrapper: {
+        marginTop: 20,
+
+    },
+    TitlesTitle: {
+        fontFamily: 'monsterMed',
+        fontSize: 20,
+        color: colors.textDark,
+    },
+    TitlesDesc: {
+        fontFamily: 'monsterMed',
+        fontSize: 12,
+        color: 'grey',
+    },
+    BottomWrapper: {
+        alignItems: 'center',
+        marginTop: 10,
+        justifyContent: 'center'
+      },
+    addButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 10,
+        width: 0.85*width,
+        borderRadius: 25,
+        alignItems: 'center',
+        marginLeft: -20,
+        marginTop: 20,
+    },
+    dishPriceWrapper: {
+      marginBottom: 20
   },
+  dishPriceText: {
+      color: colors.price,
+      fontFamily: 'monsterReg',
+      fontSize: 20,
+  },
+    CardRight: {
+        marginLeft: 20,
+        width: 220,
+        overflow: 'hidden'
+    },
+    CardImage: {
+        width: 210,
+        height: 125,
+        borderTopLeftRadius: 20,
+        borderBottomLeftRadius: 20,
+        marginLeft: 50,
+    },
 });

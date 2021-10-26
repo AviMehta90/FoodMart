@@ -100,11 +100,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 5,
     shadowColor: '#171717',
-    elevation: Platform.OS === 'ios' ? 1 : 4,
+    elevation: Platform.OS === 'ios' ? 0 : 4,
     shadowOffset: {width: 2, height: 4},
-    shadowOpacity: Platform.OS === 'ios' ? 1 : 0.4,
+    shadowOpacity: Platform.OS === 'ios' ? 0.2 : 0.4,
     shadowRadius: 3,
-    overflow: 'hidden'
+
   },
 
   popTopWapper: {
@@ -152,11 +152,16 @@ const styles = StyleSheet.create({
     },
     popCardRight: {
         marginLeft: 20,
+        marginBottom: 10,
+        width: 150,
+        overflow: 'hidden',
+        borderTopRightRadius: 25,
+        borderBottomRightRadius: 25
     },
     popCardImage: {
-        width: 210,
+        width: 180,
         height: 125,
-        
+        borderRadius: 25,
     },
 
 });
