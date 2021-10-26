@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 
 //ADD localhost address of your server
-const API_URL = "http://192.168.29.27:3000";
+const API_URL = "http://192.168.1.104:3000";
 
 const StripeApp = props => {
   const [phone, setPhone ] = useState();
