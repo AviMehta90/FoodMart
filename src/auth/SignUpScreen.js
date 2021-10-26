@@ -15,6 +15,7 @@ import * as Animatable from 'react-native-animatable';
 import {LinearGradient} from 'expo-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import colors from '../../assets/colors/colors';
 
 const SignInScreen = ({navigation}) => {
 
@@ -193,7 +194,7 @@ const SignInScreen = ({navigation}) => {
                     onPress={() => {}}
                 >
                 <LinearGradient
-                    colors={['#FFD18E', '#FFB64C']}
+                    colors={[colors.primary, colors.primary]}
                     style={styles.signIn}
                 >
                     <Text style={[styles.textSign, {
@@ -205,13 +206,13 @@ const SignInScreen = ({navigation}) => {
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                     style={[styles.signIn, {
-                        borderColor: '#FFB64C',
+                        borderColor: '#272343',
                         borderWidth: 1,
                         marginTop: 15
                     }]}
                 >
                     <Text style={[styles.textSign, {
-                        color: '#FFB64C'
+                        color: '#272343'
                     }]}>Sign In</Text>
                 </TouchableOpacity>
             </View>
@@ -226,7 +227,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#FFB64C'
+      backgroundColor: colors.secondary
     },
     header: {
         flex: 1,
@@ -236,6 +237,10 @@ const styles = StyleSheet.create({
     },
     footer: {
         flex: Platform.OS === 'ios' ? 3 : 5,
+        shadowColor: '#272727',
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -243,7 +248,7 @@ const styles = StyleSheet.create({
         paddingVertical: 30
     },
     text_header: {
-        color: '#fff',
+        color: colors.primary,
         fontWeight: 'bold',
         fontSize: 30
     },

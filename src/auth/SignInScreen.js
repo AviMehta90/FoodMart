@@ -198,7 +198,7 @@ const SignInScreen = ({navigation}) => {
 
 
             <TouchableOpacity>
-                <Text style={{color: '#FB9B10', marginTop:15}}>Forgot password?</Text>
+                <Text style={{color: '#272343', marginTop:15}}>Forgot password?</Text>
             </TouchableOpacity>
             <View style={styles.button}>
                 <TouchableOpacity
@@ -206,7 +206,7 @@ const SignInScreen = ({navigation}) => {
                     onPress={() => {loginHandle( data.email, data.password )}}
                 >
                 <LinearGradient
-                    colors={['#FFD18E', '#FFB64C']}
+                    colors={['#272343', '#272343']}
                     style={styles.signIn}
                 >
                     <Text style={[styles.textSign, {
@@ -218,13 +218,13 @@ const SignInScreen = ({navigation}) => {
                 <TouchableOpacity
                     onPress={() => navigation.navigate('SignUpScreen')}
                     style={[styles.signIn, {
-                        borderColor: '#FFB64C',
+                        borderColor: '#272343',
                         borderWidth: 1,
                         marginTop: 15
                     }]}
                 >
                     <Text style={[styles.textSign, {
-                        color: '#FFB64C'
+                        color: '#272343'
                     }]}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
@@ -238,7 +238,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#FFB64C'
+      backgroundColor: '#E3F6F6'
     },
     header: {
         flex: 1,
@@ -248,6 +248,10 @@ const styles = StyleSheet.create({
     },
     footer: {
         flex: 3,
+        shadowColor: '#272727',
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -255,7 +259,7 @@ const styles = StyleSheet.create({
         paddingVertical: 30
     },
     text_header: {
-        color: '#fff',
+        color: '#272343',
         fontWeight: 'bold',
         fontSize: 30
     },
@@ -281,7 +285,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
-        color: '#05375a',
+        color: '#272343',
     },
     errorMsg: {
         color: '#FF0000',

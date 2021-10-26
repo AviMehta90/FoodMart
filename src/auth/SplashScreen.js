@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {LinearGradient} from 'expo-linear-gradient';
+
+import colors from '../../assets/colors/colors';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SplashScreen = ({navigation}) => {
@@ -34,7 +37,7 @@ const SplashScreen = ({navigation}) => {
             <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.navigate('SignInScreen')}>
                 <LinearGradient
-                    colors={['#FFD18E', '#FFB64C']}
+                    colors={['#272343', '#272343']}
                     style={styles.signIn}
                 >
                     <Text style={styles.textSign}>Order Up!</Text>
@@ -54,7 +57,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFB64C'
+    backgroundColor: '#E3F6F6'
   },
   header: {
       flex: 2,
@@ -63,6 +66,11 @@ const styles = StyleSheet.create({
   },
   footer: {
       flex: 1,
+      elevation: 5,
+      shadowColor: '#272727',
+        shadowOffset: {width: 0, height: -1},
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
       backgroundColor: '#fff',
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
@@ -74,7 +82,7 @@ const styles = StyleSheet.create({
       height: height_logo
   },
   title: {
-      color: '#05375a',
+      color: '#272343',
       fontSize: 30,
       fontWeight: 'bold'
   },
@@ -83,7 +91,7 @@ const styles = StyleSheet.create({
       marginTop:5
   },
   button: {
-      alignItems: 'flex-end',
+      
       marginTop: 30
   },
   signIn: {
@@ -91,7 +99,7 @@ const styles = StyleSheet.create({
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 50,
+      borderRadius: 20,
       flexDirection: 'row'
   },
   textSign: {
