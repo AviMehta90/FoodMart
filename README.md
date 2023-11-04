@@ -23,12 +23,12 @@ Follow these steps to get the project up and running:
 
 1. Clone the repository:
    ```sh
-   git clone <repository_url>
+   git clone https://github.com/AviMehta90/FoodMart.git
    ```
 
 2. Change directory to the project root:
    ```sh
-   cd <project_directory>
+   cd FoodMart
    ```
 
 3. Install project dependencies:
